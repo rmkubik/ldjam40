@@ -8,7 +8,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <DesktopIcon/>
+        <DesktopIcon icon="📁"/>
+        <DesktopIcon icon="📃"/>
       </div>
     );
   }
