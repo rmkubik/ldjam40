@@ -10,14 +10,15 @@ class App extends Component {
     desktopIcons: []
   }
 
-  createNewDesktopIcon(icon, position) {
+  createNewDesktopIcon = (icon, position) => {
     this.state.desktopIcons += icon;
+    console.log("creating new desktopicon")
   }
 
   render() {
     return (
       <div className="App">
-        <Emitter icon="📁" position={{x: 100, y: 100}}/>
+        <Emitter icon="📁" spawnCallback={this.createNewDesktopIcon} position={{x: 100, y: 100}}/>
         <DesktopIcon icon="📃" position={{x: 100, y: 200}}/>
       </div>
     );
