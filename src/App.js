@@ -6,11 +6,19 @@ import DesktopIcon from './components/DesktopIcon';
 import Emitter from './components/Emitter';
 
 class App extends Component {
+  state = {
+    desktopIcons: []
+  }
+
+  createNewDesktopIcon(icon, position) {
+    this.state.desktopIcons += icon;
+  }
+
   render() {
     return (
       <div className="App">
-        <Emitter icon="📁"/>
-        <DesktopIcon icon="📃"/>
+        <Emitter icon="📁" position={{x: 100, y: 100}}/>
+        <DesktopIcon icon="📃" position={{x: 100, y: 200}}/>
       </div>
     );
   }
