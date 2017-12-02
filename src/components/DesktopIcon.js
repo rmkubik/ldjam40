@@ -1,7 +1,7 @@
 import React from 'react';
 import Draggable from 'react-draggable';
 
-class Icon extends React.Component {
+class DesktopIcon extends React.Component {
     render() {
         return (
             <Draggable>
@@ -11,4 +11,4 @@ class Icon extends React.Component {
     }
 }
 
-export default Icon;
+export default DesktopIcon;
