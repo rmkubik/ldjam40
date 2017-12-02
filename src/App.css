@@ -1,28 +1,23 @@
-.App {
-  text-align: center;
+.icon {
+  font-size: 32px;
+  position: absolute;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.spawn-enter {
+  animation-duration: 150ms;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.spawn-enter.spawn-enter-active {
+  animation-name: zoomIn;
 }
 
-.App-title {
-  font-size: 1.5em;
-}
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
 
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  50% {
+    opacity: 1;
+  }
 }
