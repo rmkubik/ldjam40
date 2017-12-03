@@ -135,12 +135,6 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Emitter 
-          icon={this.iconTypes.folder} 
-          spawnCallback={this.createNewDesktopIcon} 
-          spawnedIcon={this.iconTypes.file}
-          initialPosition={{x: 200, y: 150}}
-        />
         <Consumer 
           icon={this.iconTypes.appStore}
           initialPosition={{x: 350, y: 150}}
