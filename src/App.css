@@ -1,3 +1,7 @@
+body {
+  user-select: none;
+}
+
 .icon {
   font-size: 32px;
   position: absolute;
