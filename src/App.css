@@ -1,6 +1,7 @@
 .icon {
   font-size: 32px;
   position: absolute;
+  cursor: pointer;
 }
 
 .spawn-enter {
@@ -11,6 +12,14 @@
   animation-name: zoomIn;
 }
 
+.spawn-exit {
+  animation-duration: 150ms;
+}
+
+.spawn-exit.spawn-exit-active {
+  animation-name: zoomOut;
+}
+
 @keyframes zoomIn {
   from {
     opacity: 0;
@@ -19,5 +28,20 @@
 
   50% {
     opacity: 1;
+  }
+}
+
+@keyframes zoomOut {
+  from {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+
+  to {
+    opacity: 0;
   }
 }

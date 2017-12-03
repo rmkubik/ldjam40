@@ -4,11 +4,13 @@ import '../App.css';
 
 class DesktopIcon extends React.Component {
     render() {
+        const onDrag = this.props.onDrag ? (e, data) => { this.props.onDrag(this.props.index, {x: data.x, y: data.y})} : undefined;
+
         return (
-            <Draggable>
+            <Draggable onDrag={onDrag}>
                 <p style = {{
-                        left: this.props.position ? this.props.position.x : 0,
-                        top: this.props.position ? this.props.position.y : 0
+                        left: this.props.initialPosition.x,
+                        top: this.props.initialPosition.y
                     }}
                     className={"icon"}
                 >
