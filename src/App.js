@@ -16,11 +16,22 @@ class App extends Component {
     money: 0
   }
 
+  iconTypes = {
+    file: "📃",
+    folder: "📁",
+    appStore: "🏦"
+  }
+
   createNewDesktopIcon = (icon, position) => {
     this.setState({
       desktopIcons: [
         ...this.state.desktopIcons,
-        { icon, position, initialPosition: position, id: this.state.nextIconId }
+        { 
+          icon, 
+          position, 
+          initialPosition: position, 
+          id: this.state.nextIconId 
+        }
       ],
       nextIconId: this.state.nextIconId + 1
     })
@@ -86,15 +97,15 @@ class App extends Component {
     return (
       <div className="App">
         <Emitter 
-          icon="📁" 
+          icon={this.iconTypes.folder} 
           spawnCallback={this.createNewDesktopIcon} 
-          spawnedIcon="📃"
+          spawnedIcon={this.iconTypes.file}
           initialPosition={{x: 200, y: 150}}
         />
         <Consumer 
-          icon="🏦" 
+          icon={this.iconTypes.appStore}
           initialPosition={{x: 350, y: 150}}
-          consumedIcon="📃"
+          consumedIcon={this.iconTypes.file}
           consumeCallback={this.consumeDesktopIcon}
           range={100}
         />
@@ -106,8 +117,8 @@ class App extends Component {
           {desktopIcons}
         </ReactCSSTransitionGroup>
         <p style={{display:"inline-block", paddingLeft: "10px", paddingRight: "10px"}}>$: {this.state.money}</p>
-        <button style={{display:"inline-block"}}>New: 📁</button>
-        <button style={{display:"inline-block"}}>New: 🏦</button>
+        <button style={{display:"inline-block"}}>New: {this.iconTypes.folder}</button>
+        <button style={{display:"inline-block"}}>New: {this.iconTypes.appStore}</button>
       </div>
     );
   }
