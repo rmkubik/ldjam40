@@ -4,7 +4,7 @@ import '../App.css';
 
 class DesktopIcon extends React.Component {
     render() {
-        const onDrag = this.props.onDrag ? (e, data) => { this.props.onDrag(this.props.index, {x: data.x, y: data.y})} : undefined;
+        const onDrag = this.props.onDrag ? (e, data) => { this.props.onDrag(this.props.id, {x: data.x, y: data.y})} : undefined;
 
         return (
             <Draggable onDrag={onDrag}>

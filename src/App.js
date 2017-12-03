@@ -22,6 +22,22 @@ class App extends Component {
     appStore: "🏦"
   }
 
+  componentDidMount() {
+    this.createNewDesktopIcon(this.iconTypes.folder, {x: 200, y: 150});
+  }
+
+  findDesktopIconIndexById = (id) => {
+    return this.state.desktopIcons.findIndex((value) => {
+      return id === value.id
+    });
+  }
+
+  lookUpDesktopIconPositionById = (id) => {
+    const index = this.findDesktopIconIndexById(id);
+    if (index === -1) return; //why are icons with ids not in state being asked to updateposition?    
+    return this.state.desktopIcons[index].position;
+  }
+
   createNewDesktopIcon = (icon, position) => {
     this.setState({
       desktopIcons: [
@@ -39,7 +55,7 @@ class App extends Component {
 
   consumeDesktopIcon = (icon, position, range) => {
     const nearestDesktopIconIndex = this.state.desktopIcons.reduce((closestIconIndex, currentIcon, currentIndex) => {
-      return findEuclideanDistance(currentIcon.position, position) < findEuclideanDistance(
+      return currentIcon.icon === icon && findEuclideanDistance(currentIcon.position, position) < findEuclideanDistance(
         this.state.desktopIcons[closestIconIndex].position, position
       )
         ? currentIndex
@@ -62,7 +78,7 @@ class App extends Component {
     const index = this.findDesktopIconIndexById(id);
     if (index === -1) return; //why are icons with ids not in state being asked to updateposition?
     const desktopIcon = {...this.state.desktopIcons[index]};
-    console.log({index, list: this.state.desktopIcons, desktopIcon});
+
     desktopIcon.position = {
       x: desktopIcon.initialPosition.x + position.x,
       y: desktopIcon.initialPosition.y + position.y
@@ -77,12 +93,6 @@ class App extends Component {
     })
   }
 
-  findDesktopIconIndexById = (id) => {
-    return this.state.desktopIcons.findIndex((value) => {
-      return id === value.id
-    });
-  }
-
   render() {
     const desktopIcons = this.state.desktopIcons.map((desktopIcon, index) => {
       let icon;
@@ -93,19 +103,22 @@ class App extends Component {
             initialPosition={desktopIcon.initialPosition}
             onDrag={this.updateDesktopIconPosition}
             key={desktopIcon.id} 
-            index={desktopIcon.id}
+            id={desktopIcon.id}
           />
           break;
         case this.iconTypes.folder:
-          <Emitter 
+          icon = <Emitter 
             icon={this.iconTypes.folder} 
+            findPosition={() => this.lookUpDesktopIconPositionById(desktopIcon.id)}
             spawnCallback={this.createNewDesktopIcon} 
             spawnedIcon={this.iconTypes.file}
             initialPosition={desktopIcon.initialPosition}
+            onDrag={this.updateDesktopIconPosition}
+            id={desktopIcon.id}
           />
           break;
         case this.iconTypes.appStore:
-          <Consumer 
+          icon = <Consumer 
             icon={this.iconTypes.appStore}
             initialPosition={desktopIcon.initialPosition}
             consumedIcon={this.iconTypes.file}
