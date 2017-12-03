@@ -13,7 +13,8 @@ class App extends Component {
   state = {
     desktopIcons: [],
     nextIconId: 0,
-    money: 0
+    money: 0,
+    hddSize: 100
   }
 
   iconTypes = {
@@ -39,7 +40,6 @@ class App extends Component {
   }
 
   createNewDesktopIcon = (icon, position) => {
-    if (!position) console.log(position);
     this.setState({
       desktopIcons: [
         ...this.state.desktopIcons,
@@ -55,9 +55,7 @@ class App extends Component {
   }
 
   consumeDesktopIcon = (icon, position, range) => {
-    console.log(icon);
     const consumableDesktopIcons = this.state.desktopIcons.filter((desktopIcon) => {
-      console.log({a: desktopIcon.icon, b: icon})
       return desktopIcon.icon === icon;
     });
 
@@ -163,6 +161,8 @@ class App extends Component {
         <p style={{display:"inline-block", paddingLeft: "10px", paddingRight: "10px"}}>$: {this.state.money}</p>
         <button style={{display:"inline-block"}}>New: {this.iconTypes.folder}</button>
         <button style={{display:"inline-block"}}>New: {this.iconTypes.appStore}</button>
+        <p style={{display:"inline-block", paddingLeft: "10px", paddingRight: "10px"}}>HDD Space: </p>
+        <progress value={this.state.desktopIcons.length} max={this.state.hddSize} style={{display:"inline-block", paddingLeft: "10px", paddingRight: "10px"}}></progress>
       </div>
     );
   }
