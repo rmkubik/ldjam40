@@ -85,13 +85,39 @@ class App extends Component {
 
   render() {
     const desktopIcons = this.state.desktopIcons.map((desktopIcon, index) => {
-      return <DesktopIcon 
-        icon={desktopIcon.icon} 
-        initialPosition={desktopIcon.initialPosition}
-        onDrag={this.updateDesktopIconPosition}
-        key={desktopIcon.id} 
-        index={desktopIcon.id}
-      />
+      let icon;
+      switch (desktopIcon.icon) {
+        case this.iconTypes.file:
+          icon = <DesktopIcon 
+            icon={desktopIcon.icon} 
+            initialPosition={desktopIcon.initialPosition}
+            onDrag={this.updateDesktopIconPosition}
+            key={desktopIcon.id} 
+            index={desktopIcon.id}
+          />
+          break;
+        case this.iconTypes.folder:
+          <Emitter 
+            icon={this.iconTypes.folder} 
+            spawnCallback={this.createNewDesktopIcon} 
+            spawnedIcon={this.iconTypes.file}
+            initialPosition={desktopIcon.initialPosition}
+          />
+          break;
+        case this.iconTypes.appStore:
+          <Consumer 
+            icon={this.iconTypes.appStore}
+            initialPosition={desktopIcon.initialPosition}
+            consumedIcon={this.iconTypes.file}
+            consumeCallback={this.consumeDesktopIcon}
+            range={100}
+          />
+          break;
+        default:
+          console.warn(desktopIcon.icon + " is not implemented for rendering");
+          break;
+      }
+      return icon;
     });
 
     return (
