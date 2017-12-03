@@ -16,11 +16,12 @@ body {
   animation-name: zoomIn;
 }
 
-.spawn-exit {
+.spawn-leave {
   animation-duration: 150ms;
+  /* background-color: red; */
 }
 
-.spawn-exit.spawn-exit-active {
+.spawn-leave.spawn-leave-active {
   animation-name: zoomOut;
 }
 
@@ -42,7 +43,8 @@ body {
 
   50% {
     opacity: 0;
-    transform: scale3d(.3, .3, .3);
+    /* font-size: 8px; */
+    /* transform: scale3d(.3, .3, .3); */
   }
 
   to {
