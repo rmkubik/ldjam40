@@ -39,6 +39,7 @@ class App extends Component {
   }
 
   createNewDesktopIcon = (icon, position) => {
+    if (!position) console.log(position);
     this.setState({
       desktopIcons: [
         ...this.state.desktopIcons,
@@ -54,20 +55,30 @@ class App extends Component {
   }
 
   consumeDesktopIcon = (icon, position, range) => {
-    const nearestDesktopIconIndex = this.state.desktopIcons.reduce((closestIconIndex, currentIcon, currentIndex) => {
-      return currentIcon.icon === icon && findEuclideanDistance(currentIcon.position, position) < findEuclideanDistance(
-        this.state.desktopIcons[closestIconIndex].position, position
+    console.log(icon);
+    const consumableDesktopIcons = this.state.desktopIcons.filter((desktopIcon) => {
+      console.log({a: desktopIcon.icon, b: icon})
+      return desktopIcon.icon === icon;
+    });
+
+    if (consumableDesktopIcons.length === 0) return; // no icons to consume
+
+    const nearestDesktopIconIndex = consumableDesktopIcons.reduce((closestIconIndex, currentIcon, currentIndex, consumables) => {
+      return findEuclideanDistance(currentIcon.position, position) < findEuclideanDistance(
+        consumables[closestIconIndex].position, position
       )
         ? currentIndex
         : closestIconIndex
     }, 0);
-    const nearestDesktopIcon = this.state.desktopIcons[nearestDesktopIconIndex];   
+
+    const nearestDesktopIcon = consumableDesktopIcons[nearestDesktopIconIndex];   
 
     if (findEuclideanDistance(nearestDesktopIcon.position, position) <= range) {
+      const desktopIconStateIndex = this.findDesktopIconIndexById(nearestDesktopIcon.id);
       this.setState({
         desktopIcons: [
-          ...this.state.desktopIcons.slice(0, nearestDesktopIconIndex),
-          ...this.state.desktopIcons.slice(nearestDesktopIconIndex + 1)
+          ...this.state.desktopIcons.slice(0, desktopIconStateIndex),
+          ...this.state.desktopIcons.slice(desktopIconStateIndex + 1)
         ],
         money: this.state.money + 1
       });

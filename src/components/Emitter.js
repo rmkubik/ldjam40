@@ -5,7 +5,18 @@ import DesktopIcon from './DesktopIcon';
 
 class Emitter extends DesktopIcon { 
     componentDidMount() {
-        setInterval(() => { this.props.spawnCallback(this.props.spawnedIcon, this.props.findPosition(this.props.id)) }, 1000);
+        this.spawner = setInterval(() => { 
+            const position = this.props.findPosition(this.props.id);
+            if (position === undefined) return;
+            this.props.spawnCallback(
+                this.props.spawnedIcon, 
+                position
+            ) 
+        }, 1000);
+    }
+
+    ccomponentWillUnmount() {
+        clearInterval(this.spawner);
     }
 }
 
