@@ -11,39 +11,52 @@ import findEuclideanDistance from './Helpers';
 
 class App extends Component {
   state = {
-    desktopIcons: []
+    desktopIcons: [],
+    nextIconId: 0,
+    money: 0
   }
 
   createNewDesktopIcon = (icon, position) => {
     this.setState({
       desktopIcons: [
         ...this.state.desktopIcons,
-        { icon, position, initialPosition: position }
-      ]
+        { icon, position, initialPosition: position, id: this.state.nextIconId }
+      ],
+      nextIconId: this.state.nextIconId + 1
     })
   }
 
   consumeDesktopIcon = (icon, position, range) => {
-    // find nearest desktop icon of correct type
-    const nearestDesktopIcon = this.state.desktopIcons.reduce((closestIcon, currentIcon) => {
-      return findEuclideanDistance(currentIcon.position, position) < findEuclideanDistance(closestIcon.position, position)
-        ? currentIcon
-        : closestIcon
-    });
-    // is it in range?
+    const nearestDesktopIconIndex = this.state.desktopIcons.reduce((closestIconIndex, currentIcon, currentIndex) => {
+      return findEuclideanDistance(currentIcon.position, position) < findEuclideanDistance(
+        this.state.desktopIcons[closestIconIndex].position, position
+      )
+        ? currentIndex
+        : closestIconIndex
+    }, 0);
+    const nearestDesktopIcon = this.state.desktopIcons[nearestDesktopIconIndex];   
+
     if (findEuclideanDistance(nearestDesktopIcon.position, position) <= range) {
-      console.log("close enough!");
+      this.setState({
+        desktopIcons: [
+          ...this.state.desktopIcons.slice(0, nearestDesktopIconIndex),
+          ...this.state.desktopIcons.slice(nearestDesktopIconIndex + 1)
+        ],
+        money: this.state.money + 1
+      });
     }
-    // remove it from the state
   }
 
-  updateDesktopIconPosition = (index, position) => {
+  updateDesktopIconPosition = (id, position) => {
+    const index = this.findDesktopIconIndexById(id);
+    if (index === -1) return; //why are icons with ids not in state being asked to updateposition?
     const desktopIcon = {...this.state.desktopIcons[index]};
+    console.log({index, list: this.state.desktopIcons, desktopIcon});
     desktopIcon.position = {
       x: desktopIcon.initialPosition.x + position.x,
       y: desktopIcon.initialPosition.y + position.y
     };
-    
+
     this.setState({
       desktopIcons: [
         ...this.state.desktopIcons.slice(0, index),
@@ -53,14 +66,20 @@ class App extends Component {
     })
   }
 
+  findDesktopIconIndexById = (id) => {
+    return this.state.desktopIcons.findIndex((value) => {
+      return id === value.id
+    });
+  }
+
   render() {
     const desktopIcons = this.state.desktopIcons.map((desktopIcon, index) => {
       return <DesktopIcon 
         icon={desktopIcon.icon} 
         initialPosition={desktopIcon.initialPosition}
         onDrag={this.updateDesktopIconPosition}
-        key={index} 
-        index={index}
+        key={desktopIcon.id} 
+        index={desktopIcon.id}
       />
     });
 
@@ -73,7 +92,7 @@ class App extends Component {
           initialPosition={{x: 200, y: 150}}
         />
         <Consumer 
-          icon="🖥️" 
+          icon="🏦" 
           initialPosition={{x: 350, y: 150}}
           consumedIcon="📃"
           consumeCallback={this.consumeDesktopIcon}
@@ -86,6 +105,9 @@ class App extends Component {
         >
           {desktopIcons}
         </ReactCSSTransitionGroup>
+        <p style={{display:"inline-block", paddingLeft: "10px", paddingRight: "10px"}}>$: {this.state.money}</p>
+        <button style={{display:"inline-block"}}>New: 📁</button>
+        <button style={{display:"inline-block"}}>New: 🏦</button>
       </div>
     );
   }
