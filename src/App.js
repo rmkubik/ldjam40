@@ -20,7 +20,8 @@ class App extends Component {
   iconTypes = {
     file: "📃",
     folder: "📁",
-    appStore: "🏦"
+    appStore: "🏦",
+    hdd: "💾"
   }
 
   componentDidMount() {
@@ -42,6 +43,14 @@ class App extends Component {
 
   purchaseNewDesktopIcon = (icon, cost, position) => {
     if (this.state.money >= cost) {
+      if (icon === this.iconTypes.hdd) {
+        this.setState((prevState) => {
+          const {hddSize} = prevState;
+          return {
+            hddSize: hddSize + 10
+          }
+        });
+      }
       this.createNewDesktopIcon(icon, position);
       this.setState((prevState) => {
         const {money} = prevState;
@@ -172,6 +181,15 @@ class App extends Component {
             id={desktopIcon.id}
           />
           break;
+        case this.iconTypes.hdd:
+          icon = <DesktopIcon 
+            icon={desktopIcon.icon} 
+            initialPosition={desktopIcon.initialPosition}
+            onDrag={this.updateDesktopIconPosition}
+            key={desktopIcon.id} 
+            id={desktopIcon.id}
+          />
+          break;
         default:
           console.warn(desktopIcon.icon + " is not implemented for rendering");
           break;
@@ -204,6 +222,14 @@ class App extends Component {
           }}
         >
           {this.iconTypes.appStore} - $20
+        </button>
+        <button 
+          style={{display:"inline-block"}}
+          onClick={()=>{
+            this.purchaseNewDesktopIcon(this.iconTypes.hdd, 40, {x: 50, y: 50});
+          }}
+        >
+          {this.iconTypes.hdd} - $40
         </button>
         <p style={{display:"inline-block", paddingLeft: "10px", paddingRight: "10px"}}>HDD Space: </p>
         <progress value={this.state.desktopIcons.length} max={this.state.hddSize} style={{display:"inline-block", paddingLeft: "10px", paddingRight: "10px"}}></progress>
