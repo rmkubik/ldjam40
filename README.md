@@ -1,5 +1,10 @@
 This project was built in under 48 hours for [Ludum Dare 40](https://ldjam.com/events/ludum-dare/40). The theme for this game jam was "The more you have, the worse it is." You can view my submission [here](https://ldjam.com/events/ludum-dare/40/infinite-desktop-icons) and play the game [here](https://law5guy.itch.io/infinite-desktop-icons).
 
+My Devember repository has some devlog type information from building this project too:
+[Day #1](https://github.com/rmkubik/devember2017/blob/master/1/README.md)
+[Day #2](https://github.com/rmkubik/devember2017/blob/master/2/README.md)
+[Day #3](https://github.com/rmkubik/devember2017/blob/master/3/README.md)
+
 ---
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
