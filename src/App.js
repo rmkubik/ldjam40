@@ -25,6 +25,7 @@ class App extends Component {
 
   componentDidMount() {
     this.createNewDesktopIcon(this.iconTypes.folder, {x: 200, y: 150});
+    this.createNewDesktopIcon(this.iconTypes.appStore, {x: 350, y: 150});
   }
 
   findDesktopIconIndexById = (id) => {
@@ -40,19 +41,25 @@ class App extends Component {
   }
 
   createNewDesktopIcon = (icon, position) => {
-    this.setState({
-      desktopIcons: [
-        ...this.state.desktopIcons,
-        { 
-          icon, 
-          position, 
-          initialPosition: position, 
-          id: this.state.nextIconId 
-        }
-      ],
-      nextIconId: this.state.nextIconId + 1
-    })
+    this.setState((prevState) => {
+      const {nextIconId, desktopIcons} = prevState;
+
+      return { 
+        desktopIcons: [
+          ...desktopIcons,
+          { 
+            icon, 
+            position, 
+            initialPosition: position, 
+            id: nextIconId 
+          }
+        ],
+        nextIconId: nextIconId + 1
+      }
+    });
   }
+
+  getNextDesktopIconId
 
   consumeDesktopIcon = (icon, position, range) => {
     const consumableDesktopIcons = this.state.desktopIcons.filter((desktopIcon) => {
@@ -73,12 +80,15 @@ class App extends Component {
 
     if (findEuclideanDistance(nearestDesktopIcon.position, position) <= range) {
       const desktopIconStateIndex = this.findDesktopIconIndexById(nearestDesktopIcon.id);
-      this.setState({
-        desktopIcons: [
-          ...this.state.desktopIcons.slice(0, desktopIconStateIndex),
-          ...this.state.desktopIcons.slice(desktopIconStateIndex + 1)
-        ],
-        money: this.state.money + 1
+      this.setState((prevState) => {
+        const {money, desktopIcons} = prevState;
+        return {
+          desktopIcons: [
+            ...desktopIcons.slice(0, desktopIconStateIndex),
+            ...desktopIcons.slice(desktopIconStateIndex + 1)
+          ],
+          money: money + 1
+        }
       });
     }
   }
@@ -93,13 +103,16 @@ class App extends Component {
       y: desktopIcon.initialPosition.y + position.y
     };
 
-    this.setState({
-      desktopIcons: [
-        ...this.state.desktopIcons.slice(0, index),
-        desktopIcon,
-        ...this.state.desktopIcons.slice(index + 1)
-      ]
-    })
+    this.setState((prevState) => {
+      const {desktopIcons} = prevState;
+      return {
+            desktopIcons: [
+            ...desktopIcons.slice(0, index),
+            desktopIcon,
+            ...desktopIcons.slice(index + 1)
+          ]
+        }
+    });
   }
 
   render() {
@@ -123,6 +136,7 @@ class App extends Component {
             spawnedIcon={this.iconTypes.file}
             initialPosition={desktopIcon.initialPosition}
             onDrag={this.updateDesktopIconPosition}
+            key={desktopIcon.id}
             id={desktopIcon.id}
           />
           break;
@@ -133,6 +147,8 @@ class App extends Component {
             consumedIcon={this.iconTypes.file}
             consumeCallback={this.consumeDesktopIcon}
             range={100}
+            key={desktopIcon.id}
+            id={desktopIcon.id}
           />
           break;
         default:
@@ -144,13 +160,6 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Consumer 
-          icon={this.iconTypes.appStore}
-          initialPosition={{x: 350, y: 150}}
-          consumedIcon={this.iconTypes.file}
-          consumeCallback={this.consumeDesktopIcon}
-          range={100}
-        />
         <ReactCSSTransitionGroup                     
           transitionName={"spawn"}
           transitionEnterTimeout={150}
