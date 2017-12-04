@@ -43,6 +43,7 @@ class App extends Component {
   createNewDesktopIcon = (icon, position) => {
     if (this.state.desktopIcons.length > this.state.hddSize) {
       this.gameOver();
+      return;
     }
 
     this.setState((prevState) => {
