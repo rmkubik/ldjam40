@@ -14,7 +14,7 @@ class App extends Component {
     desktopIcons: [],
     nextIconId: 0,
     money: 0,
-    hddSize: 100
+    hddSize: 10
   }
 
   iconTypes = {
@@ -41,6 +41,10 @@ class App extends Component {
   }
 
   createNewDesktopIcon = (icon, position) => {
+    if (this.state.desktopIcons.length > this.state.hddSize) {
+      this.gameOver();
+    }
+
     this.setState((prevState) => {
       const {nextIconId, desktopIcons} = prevState;
 
@@ -59,7 +63,9 @@ class App extends Component {
     });
   }
 
-  getNextDesktopIconId
+  gameOver = () => {
+    console.log("Game over! Your Hard Drive ran out of space!");
+  }
 
   consumeDesktopIcon = (icon, position, range) => {
     const consumableDesktopIcons = this.state.desktopIcons.filter((desktopIcon) => {
