@@ -40,8 +40,20 @@ class App extends Component {
     return this.state.desktopIcons[index].position;
   }
 
+  purchaseNewDesktopIcon = (icon, cost, position) => {
+    if (this.state.money >= cost) {
+      this.createNewDesktopIcon(icon, position);
+      this.setState((prevState) => {
+        const {money} = prevState;
+        return {
+          money: money - cost
+        }
+      });
+    }
+  }
+
   createNewDesktopIcon = (icon, position) => {
-    if (this.state.desktopIcons.length > this.state.hddSize) {
+    if (this.state.desktopIcons.length >= this.state.hddSize) {
       this.gameOver();
       return;
     }
@@ -150,9 +162,11 @@ class App extends Component {
         case this.iconTypes.appStore:
           icon = <Consumer 
             icon={this.iconTypes.appStore}
+            findPosition={() => this.lookUpDesktopIconPositionById(desktopIcon.id)}
             initialPosition={desktopIcon.initialPosition}
             consumedIcon={this.iconTypes.file}
             consumeCallback={this.consumeDesktopIcon}
+            onDrag={this.updateDesktopIconPosition}
             range={100}
             key={desktopIcon.id}
             id={desktopIcon.id}
@@ -175,8 +189,22 @@ class App extends Component {
           {desktopIcons}
         </ReactCSSTransitionGroup>
         <p style={{display:"inline-block", paddingLeft: "10px", paddingRight: "10px"}}>$: {this.state.money}</p>
-        <button style={{display:"inline-block"}}>New: {this.iconTypes.folder}</button>
-        <button style={{display:"inline-block"}}>New: {this.iconTypes.appStore}</button>
+        <button 
+          style={{display:"inline-block"}}
+          onClick={()=>{
+            this.purchaseNewDesktopIcon(this.iconTypes.folder, 10, {x: 50, y: 50});
+          }}
+        >
+          {this.iconTypes.folder} - $10
+        </button>
+        <button 
+          style={{display:"inline-block"}}
+          onClick={()=>{
+            this.purchaseNewDesktopIcon(this.iconTypes.appStore, 20, {x: 50, y: 50});
+          }}
+        >
+          {this.iconTypes.appStore} - $20
+        </button>
         <p style={{display:"inline-block", paddingLeft: "10px", paddingRight: "10px"}}>HDD Space: </p>
         <progress value={this.state.desktopIcons.length} max={this.state.hddSize} style={{display:"inline-block", paddingLeft: "10px", paddingRight: "10px"}}></progress>
       </div>

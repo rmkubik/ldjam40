@@ -8,7 +8,7 @@ class Consumer extends DesktopIcon {
         setInterval(() => { 
             this.props.consumeCallback(
                 this.props.consumedIcon, 
-                this.props.initialPosition, 
+                this.props.findPosition(), 
                 this.props.range
             ) 
         }, 1000);
