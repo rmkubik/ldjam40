@@ -3,8 +3,8 @@ import Draggable from 'react-draggable';
 
 import DesktopIcon from './DesktopIcon';
 
-class Emitter extends DesktopIcon { 
-    componentDidMount() {
+class Emitter extends React.Component { 
+     componentDidMount() {
         this.spawner = setInterval(() => { 
             const position = this.props.findPosition();
             if (position === undefined) return;
@@ -15,8 +15,14 @@ class Emitter extends DesktopIcon {
         }, 1000);
     }
 
-    ccomponentWillUnmount() {
+    componentWillUnmount() {
         clearInterval(this.spawner);
+    }
+
+    render() {
+        return (
+            <DesktopIcon {...this.props}/>
+        );
     }
 }
 

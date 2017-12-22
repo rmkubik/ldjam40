@@ -37,7 +37,7 @@ class App extends Component {
 
   lookUpDesktopIconPositionById = (id) => {
     const index = this.findDesktopIconIndexById(id);
-    if (index === -1) return; //why are icons with ids not in state being asked to updateposition?    
+    if (index === -1) return; // why are icons with ids not in state being asked to updateposition?    
     return this.state.desktopIcons[index].position;
   }
 
@@ -77,7 +77,8 @@ class App extends Component {
             icon, 
             position, 
             initialPosition: position, 
-            id: nextIconId 
+            id: nextIconId,
+            destroyed: false
           }
         ],
         nextIconId: nextIconId + 1
@@ -96,40 +97,94 @@ class App extends Component {
 
     if (consumableDesktopIcons.length === 0) return; // no icons to consume
 
-    const nearestDesktopIconIndex = consumableDesktopIcons.reduce((closestIconIndex, currentIcon, currentIndex, consumables) => {
-      return findEuclideanDistance(currentIcon.position, position) < findEuclideanDistance(
-        consumables[closestIconIndex].position, position
-      )
-        ? currentIndex
-        : closestIconIndex
-    }, 0);
-
-    const nearestDesktopIcon = consumableDesktopIcons[nearestDesktopIconIndex];   
+    const nearestDesktopIcon = consumableDesktopIcons.reduce((closestIcon, currentIcon) => {
+      return findEuclideanDistance(currentIcon.position, position) < findEuclideanDistance(closestIcon.position, position)
+        ? currentIcon
+        : closestIcon
+    });
 
     if (findEuclideanDistance(nearestDesktopIcon.position, position) <= range) {
       const desktopIconStateIndex = this.findDesktopIconIndexById(nearestDesktopIcon.id);
+      // this.setState((prevState) => {
+      //   const {money, desktopIcons} = prevState;
+      //   return {
+      //     desktopIcons: [
+      //       ...desktopIcons.slice(0, desktopIconStateIndex),
+      //       ...desktopIcons.slice(desktopIconStateIndex + 1)
+      //     ],
+      //     money: money + 1
+      //   }
+      // });
+      nearestDesktopIcon.destroyed = true;
+      
       this.setState((prevState) => {
-        const {money, desktopIcons} = prevState;
+        const {desktopIcons} = prevState;
         return {
           desktopIcons: [
             ...desktopIcons.slice(0, desktopIconStateIndex),
+            nearestDesktopIcon,
             ...desktopIcons.slice(desktopIconStateIndex + 1)
-          ],
-          money: money + 1
+          ]
         }
-      });
+      })
     }
+  }
+
+  // validate icon should be removed -- consumeCallback
+  findNearestConsumableIcon = (icon, position, range) => {
+    const consumableDesktopIcons = this.state.desktopIcons.filter((desktopIcon) => {
+      return desktopIcon.icon === icon;
+    });
+
+    if (consumableDesktopIcons.length === 0) return; // no icons to consume
+
+    const nearestDesktopIcon = consumableDesktopIcons.reduce((closestIcon, currentIcon) => {
+      return findEuclideanDistance(currentIcon.position, position) < findEuclideanDistance(closestIcon.position, position)
+        ? currentIcon
+        : closestIcon
+    });
+
+    const nearestConsumableIcon = findEuclideanDistance(nearestDesktopIcon.position, position) <= range
+      ? nearestDesktopIcon
+      : null
+
+    return nearestConsumableIcon;
+  }
+
+  // start exit animation -- Set in to true
+  consumerCallback = (icon, position, range, consumer) => {
+    const consumedIcon = this.findNearestConsumableIcon(icon, position, range);
+    if (consumedIcon !== null) {
+      // consumedIcon.setState({consumed: true});
+      // run animation
+    }
+  }
+
+  // update state after animation successfully completed -- call old consume callback state update piece from onExit of CSSTransition
+  removeDesktopIconFromState = (desktopIcon) => {
+    const desktopIconStateIndex = this.findDesktopIconIndexById(desktopIcon.id);
+    this.setState((prevState) => {
+      const {money, desktopIcons} = prevState;
+      return {
+        desktopIcons: [
+          ...desktopIcons.slice(0, desktopIconStateIndex),
+          ...desktopIcons.slice(desktopIconStateIndex + 1)
+        ],
+        money: money + 1
+      }
+    });
   }
 
   updateDesktopIconPosition = (id, position) => {
     const index = this.findDesktopIconIndexById(id);
-    if (index === -1) return; //why are icons with ids not in state being asked to updateposition?
+    if (index === -1) return; // why are icons with ids not in state being asked to updateposition?
     const desktopIcon = {...this.state.desktopIcons[index]};
 
-    desktopIcon.position = {
-      x: desktopIcon.initialPosition.x + position.x,
-      y: desktopIcon.initialPosition.y + position.y
-    };
+    // desktopIcon.position = {
+    //   x: desktopIcon.initialPosition.x + position.x,
+    //   y: desktopIcon.initialPosition.y + position.y
+    // };
+    desktopIcon.position = position;
 
     this.setState((prevState) => {
       const {desktopIcons} = prevState;
@@ -154,6 +209,8 @@ class App extends Component {
             onDrag={this.updateDesktopIconPosition}
             key={desktopIcon.id} 
             id={desktopIcon.id}
+            destroyIcon={desktopIcon.destroyed}
+            destroyIconCallback={() => this.removeDesktopIconFromState(desktopIcon)}
           />
           break;
         case this.iconTypes.folder:
@@ -199,13 +256,13 @@ class App extends Component {
 
     return (
       <div className="App">
-        <ReactCSSTransitionGroup                     
+        {/* <ReactCSSTransitionGroup                     
           transitionName={"spawn"}
           transitionEnterTimeout={150}
           transitionLeaveTimeout={150}
-        >
+        > */}
           {desktopIcons}
-        </ReactCSSTransitionGroup>
+        {/* </ReactCSSTransitionGroup> */}
         <p style={{display:"inline-block", paddingLeft: "10px", paddingRight: "10px"}}>$: {this.state.money}</p>
         <button 
           style={{display:"inline-block"}}
