@@ -163,6 +163,7 @@ class App extends Component {
   // update state after animation successfully completed -- call old consume callback state update piece from onExit of CSSTransition
   removeDesktopIconFromState = (desktopIcon) => {
     const desktopIconStateIndex = this.findDesktopIconIndexById(desktopIcon.id);
+    if (desktopIconStateIndex === -1) return; // why are icons with ids not in state being asked to updateposition?
     this.setState((prevState) => {
       const {money, desktopIcons} = prevState;
       return {
