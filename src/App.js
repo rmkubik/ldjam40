@@ -105,18 +105,9 @@ class App extends Component {
 
     if (findEuclideanDistance(nearestDesktopIcon.position, position) <= range) {
       const desktopIconStateIndex = this.findDesktopIconIndexById(nearestDesktopIcon.id);
-      // this.setState((prevState) => {
-      //   const {money, desktopIcons} = prevState;
-      //   return {
-      //     desktopIcons: [
-      //       ...desktopIcons.slice(0, desktopIconStateIndex),
-      //       ...desktopIcons.slice(desktopIconStateIndex + 1)
-      //     ],
-      //     money: money + 1
-      //   }
-      // });
+
       nearestDesktopIcon.destroyed = true;
-      
+
       this.setState((prevState) => {
         const {desktopIcons} = prevState;
         return {
@@ -181,10 +172,6 @@ class App extends Component {
     if (index === -1) return; // why are icons with ids not in state being asked to updateposition?
     const desktopIcon = {...this.state.desktopIcons[index]};
 
-    // desktopIcon.position = {
-    //   x: desktopIcon.initialPosition.x + position.x,
-    //   y: desktopIcon.initialPosition.y + position.y
-    // };
     desktopIcon.position = position;
 
     this.setState((prevState) => {
@@ -257,15 +244,9 @@ class App extends Component {
 
     return (
       <div className="App">
-        {/* <ReactCSSTransitionGroup                     
-          transitionName={"spawn"}
-          transitionEnterTimeout={150}
-          transitionLeaveTimeout={150}
-        > */}
-          {desktopIcons}
-        {/* </ReactCSSTransitionGroup> */}
-        <p style={{display:"inline-block", paddingLeft: "10px", paddingRight: "10px"}}>$: {this.state.money}</p>
-        <button 
+        {desktopIcons}
+        <p style={{display:"inline-block", paddingLeft: "10px", paddingRight: "10px"}}>${this.state.money}</p>
+        <button
           style={{display:"inline-block"}}
           onClick={()=>{
             this.purchaseNewDesktopIcon(this.iconTypes.folder, 10, {x: 50, y: 50});

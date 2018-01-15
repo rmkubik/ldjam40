@@ -15,38 +15,36 @@ const Fade = ({ children, ...props }) => (
 
 class DesktopIcon extends React.Component {
 
-    state = { show: false }
+    state = {
+        show: false
+    }
 
     componentDidMount = () => {
-        // setInterval(() => {
-        //     this.setState({ show: !this.state.show })
-        // }, 5000)
         this.setState({show: true});
-    }   
+    }
 
     componentWillReceiveProps = (nextProps) => {
         if (nextProps.destroyIcon === true) {
-            this.setState({show: true});
-            setInterval(() => {
+            this.setState({
+                show: false
+            });
+            // destory icon after exit animation finishes
+            setTimeout(() => {
                 this.props.destroyIconCallback();
             }, 150);
         }
     }
 
-    // componentWillUnmount = () => {
-    //     this.setState({show: false});
-    // }
-
     render() {
-        const onDrag = this.props.onDrag 
-            ? (e, data) => { 
+        const onDrag = this.props.onDrag
+            ? (e, data) => {
                 this.props.onDrag(this.props.id, {
-                    x: data.x, 
+                    x: data.x,
                     y: data.y
                 });
-            } 
+            }
             : undefined;
-        
+
         return (
             <Draggable onDrag={onDrag} defaultPosition={this.props.initialPosition}>
                 <div>
