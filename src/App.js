@@ -18,10 +18,24 @@ class App extends Component {
   }
 
   iconTypes = {
-    file: "📃",
+    file: "📄",
+    package: "📦",
+    chart: "📈",
+    email: "✉️",
+    book: "📓",
     folder: "📁",
     appStore: "🏦",
-    hdd: "💾"
+    crane: "🏗️",
+    factory: "🏭",
+    castle: "🏰",
+    hdd: "💾",
+    sdd: "💽",
+    trash: "🗑️",
+    firewall: "🔥",
+    bug: "🐛",
+    satellite: "🛰️",
+    bow: "🏹",
+    money: "💰"
   }
 
   screenMax = {
