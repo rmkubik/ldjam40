@@ -24,6 +24,11 @@ class App extends Component {
     hdd: "💾"
   }
 
+  screenMax = {
+      x: 500,
+      y: 400
+  }
+
   componentDidMount() {
     this.createNewDesktopIcon(this.iconTypes.folder, {x: 200, y: 150});
     this.createNewDesktopIcon(this.iconTypes.appStore, {x: 350, y: 150});
