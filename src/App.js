@@ -191,26 +191,33 @@ class App extends Component {
     });
   }
 
+  getRandomPositionOnScreen = () => {
+      return {
+          x: Math.floor(Math.random() * this.screenMax.x),
+          y: Math.floor(Math.random() * this.screenMax.y),
+      }
+  }
+
   render() {
     const desktopIcons = this.state.desktopIcons.map((desktopIcon, index) => {
       let icon;
       switch (desktopIcon.icon) {
         case this.iconTypes.file:
-          icon = <DesktopIcon 
-            icon={desktopIcon.icon} 
+          icon = <DesktopIcon
+            icon={desktopIcon.icon}
             initialPosition={desktopIcon.initialPosition}
             onDrag={this.updateDesktopIconPosition}
-            key={desktopIcon.id} 
+            key={desktopIcon.id}
             id={desktopIcon.id}
             destroyIcon={desktopIcon.destroyed}
             destroyIconCallback={() => this.removeDesktopIconFromState(desktopIcon)}
           />
           break;
         case this.iconTypes.folder:
-          icon = <Emitter 
-            icon={this.iconTypes.folder} 
+          icon = <Emitter
+            icon={this.iconTypes.folder}
             findPosition={() => this.lookUpDesktopIconPositionById(desktopIcon.id)}
-            spawnCallback={this.createNewDesktopIcon} 
+            spawnCallback={this.createNewDesktopIcon}
             spawnedIcon={this.iconTypes.file}
             initialPosition={desktopIcon.initialPosition}
             onDrag={this.updateDesktopIconPosition}
