@@ -261,23 +261,23 @@ class App extends Component {
         <button
           style={{display:"inline-block"}}
           onClick={()=>{
-            this.purchaseNewDesktopIcon(this.iconTypes.folder, 10, {x: 50, y: 50});
+            this.purchaseNewDesktopIcon(this.iconTypes.folder, 10, this.getRandomPositionOnScreen());
           }}
         >
           {this.iconTypes.folder} - $10
         </button>
-        <button 
+        <button
           style={{display:"inline-block"}}
           onClick={()=>{
-            this.purchaseNewDesktopIcon(this.iconTypes.appStore, 20, {x: 50, y: 50});
+            this.purchaseNewDesktopIcon(this.iconTypes.appStore, 20, this.getRandomPositionOnScreen());
           }}
         >
           {this.iconTypes.appStore} - $20
         </button>
-        <button 
+        <button
           style={{display:"inline-block"}}
           onClick={()=>{
-            this.purchaseNewDesktopIcon(this.iconTypes.hdd, 40, {x: 50, y: 50});
+            this.purchaseNewDesktopIcon(this.iconTypes.hdd, 40, this.getRandomPositionOnScreen());
           }}
         >
           {this.iconTypes.hdd} - $40
