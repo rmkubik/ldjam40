@@ -25,6 +25,7 @@ class App extends Component {
     book: "📓",
     folder: "📁",
     appStore: "🏦",
+    mailbox: "📫",
     crane: "🏗️",
     factory: "🏭",
     castle: "🏰",
