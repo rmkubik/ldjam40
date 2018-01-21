@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import DesktopIcon from './components/DesktopIcon';
 import Emitter from './components/Emitter';
 import Consumer from './components/Consumer';
+
+import fileImage from './assets/file.png';
+import folderImage from './assets/folder.png';
+import appStoreImage from './assets/app_store.png';
 
 import findEuclideanDistance from './Helpers';
 
@@ -18,13 +23,13 @@ class App extends Component {
   }
 
   iconTypes = {
-    file: "📄",
+    file: (<img src={fileImage} draggable="false"/>),
     package: "📦",
     chart: "📈",
     email: "✉️",
     book: "📓",
-    folder: "📁",
-    appStore: "🏦",
+    folder: (<img src={folderImage} draggable="false"/>),
+    appStore: (<img src={appStoreImage} draggable="false"/>),
     mailbox: "📫",
     crane: "🏗️",
     factory: "🏭",
