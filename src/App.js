@@ -116,7 +116,7 @@ class App extends Component {
     console.log("Game over! Your Hard Drive ran out of space!");
   }
 
-  consumeDesktopIcon = (icon, position, range) => {
+  consumeDesktopIcon = (icon, position, range, consumerId) => {
     const consumableDesktopIcons = this.state.desktopIcons.filter((desktopIcon) => {
       return desktopIcon.icon === icon;
     });
@@ -131,17 +131,20 @@ class App extends Component {
 
     if (findEuclideanDistance(nearestDesktopIcon.position, position) <= range) {
       const desktopIconStateIndex = this.findDesktopIconIndexById(nearestDesktopIcon.id);
-
       nearestDesktopIcon.destroyed = true;
+
+      const consumerIconStateIndex = this.findDesktopIconIndexById(consumerId);
+      const consumer = this.state.desktopIcons[consumerIconStateIndex];
+      consumer.consumed += 1;
 
       this.setState((prevState) => {
         const {desktopIcons} = prevState;
+
+        desktopIcons[desktopIconStateIndex] = nearestDesktopIcon;
+        desktopIcons[consumerIconStateIndex] = consumer;
+
         return {
-          desktopIcons: [
-            ...desktopIcons.slice(0, desktopIconStateIndex),
-            nearestDesktopIcon,
-            ...desktopIcons.slice(desktopIconStateIndex + 1)
-          ]
+          desktopIcons
         }
       })
     }
