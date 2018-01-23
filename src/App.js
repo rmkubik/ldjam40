@@ -95,15 +95,16 @@ class App extends Component {
     this.setState((prevState) => {
       const {nextIconId, desktopIcons} = prevState;
 
-      return { 
+      return {
         desktopIcons: [
           ...desktopIcons,
-          { 
-            icon, 
-            position, 
-            initialPosition: position, 
+          {
+            icon,
+            position,
+            initialPosition: position,
             id: nextIconId,
-            destroyed: false
+            destroyed: false,
+            consumed: 0
           }
         ],
         nextIconId: nextIconId + 1
