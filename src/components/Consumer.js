@@ -5,11 +5,12 @@ import DesktopIcon from './DesktopIcon';
 
 class Consumer extends React.Component {
     componentDidMount() {
-        setInterval(() => { 
+        setInterval(() => {
             this.props.consumeCallback(
                 this.props.consumedIcon,
                 this.props.findPosition(),
-                this.props.range
+                this.props.range,
+                this.props.id
             )
         }, 1000);
     }
