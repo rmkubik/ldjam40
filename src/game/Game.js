@@ -4,6 +4,7 @@ class Game {
 
     tickLength = 30;
     state;
+    loop;
 
     constructor() {
         this.state = new GameState();
