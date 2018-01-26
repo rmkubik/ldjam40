@@ -1,16 +1,16 @@
-class Game {
-    tickLength = 30;
+import GameState from './GameState'
 
-    state = {
-      desktopIcons: [],
-      nextIconId: 0,
-      money: 0,
-      hddSize: 10
-    }
+class Game {
+
+    tickLength = 30;
+    state;
 
     constructor() {
-        this.loop = setInterval(this.update, this.tickLength);
+        this.state = new GameState();
         this.createDesktopIcon();
+        this.createDesktopIcon();
+
+        this.loop = setInterval(this.update, this.tickLength);
     }
 
     update() {
