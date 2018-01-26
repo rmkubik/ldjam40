@@ -1,5 +1,6 @@
 class Game {
-    tickLength = 1000;
+    tickLength = 30;
+
     state = {
       desktopIcons: [],
       nextIconId: 0,
@@ -8,7 +9,8 @@ class Game {
     }
 
     constructor() {
-        this.loop = setInterval(this.update, 1000);
+        this.loop = setInterval(this.update, this.tickLength);
+        this.createDesktopIcon();
     }
 
     update() {
@@ -16,4 +18,10 @@ class Game {
 
         // render new state
     }
+
+    createDesktopIcon() {
+        console.log('create icon test');
+    }
 }
+
+export default Game;
