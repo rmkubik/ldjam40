@@ -21,8 +21,8 @@ class Game {
         // render new state
     }
 
-    createDesktopIcon() {
-        return new DesktopIcon();
+    createDesktopIcon(icon, position) {
+        return new DesktopIcon(icon, position);
     }
 }
 
