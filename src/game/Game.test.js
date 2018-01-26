@@ -9,11 +9,13 @@ it('should have state object', () => {
 });
 
 describe('create desktop icon function', () => {
-    it('should return a DesktopIcon', () => {
+    it('should add a correctly populated DesktopIcon to game state', () => {
         const icon = "test";
         const position = {x: 0, y: 0};
-        const desktopIcon = game.createDesktopIcon(icon, position);
-        
+
+        game.createDesktopIcon(icon, position);
+
+        const desktopIcon = game.state.desktopIcons[0];
         expect(desktopIcon).toEqual(expect.any(DesktopIcon));
         expect(desktopIcon.icon).toEqual(icon);
         expect(desktopIcon.position).toEqual(position);
