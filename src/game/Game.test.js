@@ -24,4 +24,20 @@ describe('create desktop icon function', () => {
         expect(desktopIcon.icon).toEqual(icon);
         expect(desktopIcon.position).toEqual(position);
     });
+
+    it('should correctly add multiple DesktopIcons to state', () => {
+        const position = {x: 0, y: 0};
+        const icons = ['a','b','c'];
+
+        icons.forEach((icon) => {
+            game.createDesktopIcon(icon, position);
+        });
+
+        const {desktopIcons} = game.state;
+
+        expect(desktopIcons.length).toEqual(icons.length);
+        desktopIcons.forEach((desktopIcon, index) => {
+            expect(desktopIcon.icon).toEqual(icons[index]);
+        });
+    });
 });
