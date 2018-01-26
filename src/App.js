@@ -12,6 +12,8 @@ import fileImage from './assets/file.png';
 import folderImage from './assets/folder.png';
 import appStoreImage from './assets/app_store.png';
 
+import Game from './game/Game';
+
 import findEuclideanDistance from './Helpers';
 
 class App extends Component {
@@ -50,6 +52,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    const game = new Game();
     this.createNewDesktopIcon(this.iconTypes.folder, {x: 200, y: 150});
     this.createNewDesktopIcon(this.iconTypes.appStore, {x: 350, y: 150});
   }
