@@ -2,7 +2,11 @@ import Game from './Game';
 import GameState from './GameState';
 import DesktopIcon from './DesktopIcon';
 
-const game = new Game();
+let game;
+
+beforeEach(() => {
+    game = new Game();
+})
 
 it('should have state object', () => {
   expect(game.state).toEqual(expect.any(GameState));
