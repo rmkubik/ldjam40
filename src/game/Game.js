@@ -9,8 +9,8 @@ class Game {
 
     constructor() {
         this.state = new GameState();
-        this.createDesktopIcon();
-        this.createDesktopIcon();
+        // this.createDesktopIcon();
+        // this.createDesktopIcon();
 
         this.loop = setInterval(this.update, this.tickLength);
     }
@@ -22,7 +22,12 @@ class Game {
     }
 
     createDesktopIcon(icon, position) {
-        return new DesktopIcon(icon, position);
+        const {desktopIcons} = this.state;
+
+        this.state.desktopIcons = [
+              ...desktopIcons,
+              new DesktopIcon(icon, position)
+        ];
     }
 }
 
