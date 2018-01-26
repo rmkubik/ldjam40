@@ -1,4 +1,5 @@
-import GameState from './GameState'
+import GameState from './GameState';
+import DesktopIcon from './DesktopIcon';
 
 class Game {
 
@@ -21,7 +22,7 @@ class Game {
     }
 
     createDesktopIcon() {
-        console.log('create icon test');
+        return new DesktopIcon();
     }
 }
 
