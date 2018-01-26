@@ -9,6 +9,6 @@ it('should have state object', () => {
 
 describe('create desktop icon function', () => {
     it('should return an object', () => {
-        expect(game.createDesktopIcon()).toEqual(expect.anything());
+        expect(game.createDesktopIcon()).toEqual(expect.any(DesktopIcon));
     });
 });
