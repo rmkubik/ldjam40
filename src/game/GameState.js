@@ -1,3 +1,5 @@
+import DesktopIcon from './DesktopIcon';
+
 class GameState {
 
     desktopIcons = [];
@@ -11,6 +13,30 @@ class GameState {
 
     getNextIconId() {
         return this._nextIconId++;
+    }
+
+    createDesktopIcon(icon, position) {
+        this.desktopIcons = [
+              ...this.desktopIcons,
+              new DesktopIcon(icon, position, this.getNextIconId())
+        ];
+    }
+
+    removeDesktopIcon(id) {
+        const iconIndex = this.findDesktopIconIndexById(id);
+
+        if (iconIndex === -1) return;
+
+        this.desktopIcons = [
+          ...this.desktopIcons.slice(0, iconIndex),
+          ...this.desktopIcons.slice(iconIndex + 1)
+        ];
+    }
+
+    findDesktopIconIndexById(id) {
+        return this.desktopIcons.findIndex((desktopIcon) => {
+            return desktopIcon.id === id;
+        });
     }
 }
 

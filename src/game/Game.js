@@ -36,42 +36,14 @@ class Game {
     }
 
     init() {
-        this.createDesktopIcon(this.iconTypes.folder, {x: 200, y: 150});
-        this.createDesktopIcon(this.iconTypes.appStore, {x: 350, y: 150});
+        this.state.createDesktopIcon(this.iconTypes.folder, {x: 200, y: 150});
+        this.state.createDesktopIcon(this.iconTypes.appStore, {x: 350, y: 150});
     }
 
     update() {
         // update every icon
 
         // render new state
-    }
-
-    createDesktopIcon(icon, position) {
-        const {desktopIcons} = this.state;
-
-        this.state.desktopIcons = [
-              ...desktopIcons,
-              new DesktopIcon(icon, position, this.state.getNextIconId())
-        ];
-    }
-
-    removeDesktopIcon(id) {
-        const iconIndex = this.findDesktopIconIndexById(id);
-
-        if (iconIndex === -1) return;
-
-        const {desktopIcons} = this.state;
-
-        this.state.desktopIcons = [
-          ...desktopIcons.slice(0, iconIndex),
-          ...desktopIcons.slice(iconIndex + 1)
-        ];
-    }
-
-    findDesktopIconIndexById(id) {
-        return this.state.desktopIcons.findIndex((desktopIcon) => {
-            return desktopIcon.id === id;
-        });
     }
 }
 
