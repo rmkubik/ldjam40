@@ -55,6 +55,10 @@ class Game {
         ];
     }
 
+    removeDesktopIcon(id) {
+        const iconIndex = this.findDesktopIconIndexById(id);
+    }
+
     findDesktopIconIndexById(id) {
         return this.state.desktopIcons.findIndex((desktopIcon) => {
             return desktopIcon.id === id;
