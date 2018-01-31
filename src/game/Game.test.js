@@ -44,6 +44,16 @@ describe('create desktop icon function', () => {
             expect(desktopIcon.icon).toEqual(icons[index]);
         });
     });
+
+    it('should assign new DesktopIcons an id', () => {
+        const icon = "test";
+        const position = {x: 0, y: 0};
+
+        game.createDesktopIcon(icon, position);
+
+        const desktopIcon = game.state.desktopIcons[0];
+        expect(desktopIcon.id).toEqual(expect.anything());
+    });
 });
 
 describe('init game function', () => {
