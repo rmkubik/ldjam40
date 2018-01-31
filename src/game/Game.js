@@ -31,15 +31,13 @@ class Game {
 
     constructor() {
         this.state = new GameState();
-        // this.createDesktopIcon();
-        // this.createDesktopIcon();
 
         this.loop = setInterval(this.update, this.tickLength);
     }
 
     init() {
-        this.createDesktopIcon();
-        this.createDesktopIcon();
+        this.createDesktopIcon(this.iconTypes.folder, {x: 200, y: 150});
+        this.createDesktopIcon(this.iconTypes.appStore, {x: 350, y: 150});
     }
 
     update() {
