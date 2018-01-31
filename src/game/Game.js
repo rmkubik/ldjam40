@@ -57,6 +57,15 @@ class Game {
 
     removeDesktopIcon(id) {
         const iconIndex = this.findDesktopIconIndexById(id);
+
+        if (iconIndex === -1) return;
+
+        const {desktopIcons} = this.state;
+
+        this.state.desktopIcons = [
+          ...desktopIcons.slice(0, iconIndex),
+          ...desktopIcons.slice(iconIndex + 1)
+        ];
     }
 
     findDesktopIconIndexById(id) {

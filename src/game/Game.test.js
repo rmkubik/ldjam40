@@ -65,8 +65,20 @@ describe('remove icon from state function', () => {
         ];
 
         game.removeDesktopIcon(2);
-        
+
         expect(game.state.desktopIcons.length).toEqual(2);
+    });
+
+    it('should remove no icons from state if index is not found', () => {
+        game.state.desktopIcons = [
+            new DesktopIcon('a', {}, 1),
+            new DesktopIcon('b', {}, 2),
+            new DesktopIcon('c', {}, 3)
+        ];
+
+        game.removeDesktopIcon(0);
+
+        expect(game.state.desktopIcons.length).toEqual(3);
     });
 });
 
