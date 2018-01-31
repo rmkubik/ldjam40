@@ -7,6 +7,28 @@ class Game {
     state;
     loop;
 
+    iconTypes = {
+      file: "📄",
+      package: "📦",
+      chart: "📈",
+      email: "✉️",
+      book: "📓",
+      folder: "📁",
+      appStore: "🏦",
+      mailbox: "📫",
+      crane: "🏗️",
+      factory: "🏭",
+      castle: "🏰",
+      hdd: "💾",
+      sdd: "💽",
+      trash: "🗑️",
+      firewall: "🔥",
+      bug: "🐛",
+      satellite: "🛰️",
+      bow: "🏹",
+      money: "💰"
+    }
+
     constructor() {
         this.state = new GameState();
         // this.createDesktopIcon();
