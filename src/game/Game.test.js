@@ -41,3 +41,11 @@ describe('create desktop icon function', () => {
         });
     });
 });
+
+describe('init game function', () => {
+    it('should start the game with 2 icons', () => {
+        game.init();
+
+        expect(game.state.desktopIcons.length).toEqual(2);
+    });
+});

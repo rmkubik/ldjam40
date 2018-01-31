@@ -15,6 +15,11 @@ class Game {
         this.loop = setInterval(this.update, this.tickLength);
     }
 
+    init() {
+        this.createDesktopIcon();
+        this.createDesktopIcon();
+    }
+
     update() {
         // update every icon
 
