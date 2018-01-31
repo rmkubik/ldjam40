@@ -51,8 +51,14 @@ class Game {
 
         this.state.desktopIcons = [
               ...desktopIcons,
-              new DesktopIcon(icon, position)
+              new DesktopIcon(icon, position, this.state.getNextIconId())
         ];
+    }
+
+    findDesktopIconIndexById(id) {
+        return this.state.desktopIcons.findIndex((desktopIcon) => {
+            return desktopIcon.id === id;
+        });
     }
 }
 

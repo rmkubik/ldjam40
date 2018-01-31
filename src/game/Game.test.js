@@ -63,3 +63,16 @@ describe('init game function', () => {
         expect(game.state.desktopIcons.length).toEqual(2);
     });
 });
+
+describe('find icon index by id function', () => {
+    it('should return the index of an icon with a given id', () => {
+        const desktopIcons = [
+            new DesktopIcon('a', {}, 1),
+            new DesktopIcon('b', {}, 2),
+            new DesktopIcon('c', {}, 3)
+        ]
+
+        const iconIndex = game.findDesktopIconIndexById(2);
+        expect(iconIndex).toEqual(1);
+    });
+});
