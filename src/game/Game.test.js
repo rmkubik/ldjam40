@@ -35,5 +35,6 @@ describe('update function', () => {
         game.update();
 
         expect(iconEmitSpy).toHaveBeenCalled();
+        expect(game.state.desktopIcons.length).toEqual(3);
     });
 });

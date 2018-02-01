@@ -41,10 +41,22 @@ class Game {
     }
 
     update() {
+        const {desktopIcons} = this.state;
         // update every icon
+        desktopIcons.forEach((desktopIcon) => {
+            if (desktopIcon.emit) {
+                desktopIcon.emit();
+            }
+        });
 
         // render new state
     }
+
+    // purchase new icon
+
+    // consume icon
+
+    // emit new icon
 }
 
 export default Game;
