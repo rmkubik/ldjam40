@@ -20,8 +20,8 @@ describe('Emitter functional mixin', () => {
 describe('emit function', () => {
     it('should add a new desktopIcon to state of correct type', () => {
         state.createDesktopIcon('a', {x: 0, y: 0});
-        Emitter(state.desktopIcons[0], state, 'a');
+        Emitter(state.desktopIcons[0], state, 'b');
         state.desktopIcons[0].emit();
-        expect(state.desktopIcons[1].icon).toEqual('a');
+        expect(state.desktopIcons[1].icon).toEqual('b');
     });
 });

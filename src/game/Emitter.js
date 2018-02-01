@@ -1,6 +1,6 @@
 const Emitter = (desktopIcon, state, spawnedIcon) => {
     const emit = () => {
-        state.createDesktopIcon(desktopIcon.icon, desktopIcon.position);
+        state.createDesktopIcon(spawnedIcon, desktopIcon.position);
     }
 
     Object.assign(
