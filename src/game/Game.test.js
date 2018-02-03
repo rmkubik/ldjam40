@@ -38,3 +38,17 @@ describe('update function', () => {
         expect(game.state.desktopIcons.length).toEqual(3);
     });
 });
+
+describe('get state function', () => {
+    it('should return necessary pieces of game state', () => {
+        const initialState = {
+            desktopIcons: [...game.state.desktopIcons],
+            money: game.state.money,
+            hddSize: game.state.hddSize
+        };
+
+        const state = game.getState();
+
+        expect(state).toEqual(initialState);
+    });
+});

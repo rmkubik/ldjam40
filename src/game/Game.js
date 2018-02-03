@@ -54,6 +54,16 @@ class Game {
         // render new state
     }
 
+
+    // convert game state to react state
+    getState() {
+        return {
+            desktopIcons: [...this.state.desktopIcons],
+            money: this.state.money,
+            hddSize: this.state.hddSize
+        };
+    }
+
     // purchase new icon
 
     // consume icon
