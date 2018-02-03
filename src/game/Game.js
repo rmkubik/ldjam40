@@ -1,5 +1,6 @@
 import GameState from './GameState';
 import DesktopIcon from './DesktopIcon';
+import Emitter from './Emitter';
 
 class Game {
 
@@ -32,11 +33,12 @@ class Game {
     constructor() {
         this.state = new GameState();
 
-        this.loop = setInterval(this.update, this.tickLength);
+        this.loop = setInterval(this.update.bind(this), this.tickLength);
     }
 
     init() {
         this.state.createDesktopIcon(this.iconTypes.folder, {x: 200, y: 150});
+        Emitter(this.state.desktopIcons[0], this.state, this.iconTypes.file);
         this.state.createDesktopIcon(this.iconTypes.appStore, {x: 350, y: 150});
     }
 
