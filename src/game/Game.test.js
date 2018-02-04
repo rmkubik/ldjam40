@@ -38,13 +38,14 @@ describe('update function', () => {
         expect(game.state.desktopIcons.length).toEqual(2);
     });
 
-    it('should invoke the setReactState function', () => {
-        const mockSetReactState = jest.fn();
-        game = new Game(mockSetReactState)
+    it('should invoke the setState function', () => {
+        const rootComponent = {};
+        rootComponent.setState = jest.fn();
+        game = new Game(rootComponent)
 
         game.update();
 
-        expect(mockSetReactState).toHaveBeenCalledTimes(1);
+        expect(rootComponent.setState).toHaveBeenCalledTimes(1);
     });
 });
 

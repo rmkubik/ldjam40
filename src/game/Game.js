@@ -31,10 +31,10 @@ class Game {
       money: "💰"
     }
 
-    constructor(setReactState) {
+    constructor(rootComponent) {
         this.state = new GameState();
 
-        this.setReactState = setReactState;
+        this.rootComponent = rootComponent;
     }
 
     init() {
@@ -56,8 +56,8 @@ class Game {
         });
 
         // render new state
-        if (this.setReactState) {
-            this.setReactState(this.getReactState);
+        if (this.rootComponent) {
+            this.rootComponent.setState(this.getReactState.bind(this));
         }
     }
 

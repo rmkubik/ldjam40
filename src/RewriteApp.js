@@ -4,10 +4,10 @@ import Game from './game/Game';
 
 class RewriteApp extends Component {
 
-    constructor() {
-        super();
-        
-        const game = new Game();
+    constructor(props) {
+        super(props);
+
+        const game = new Game(this);
         game.init();
     }
 
