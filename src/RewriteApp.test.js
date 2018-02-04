@@ -27,4 +27,10 @@ describe('App state', () => {
 
         expect(app.state()).not.toEqual(initialState);
     });
+
+    it('should render desktop icons', () => {
+        jest.runOnlyPendingTimers();
+
+        expect(app.find('p').length).toEqual(3);
+    });
 });
