@@ -7,6 +7,7 @@ class Game {
     tickLength = 30;
     state;
     loop;
+    setReactState;
 
     iconTypes = {
       file: "📄",
@@ -30,13 +31,15 @@ class Game {
       money: "💰"
     }
 
-    constructor() {
+    constructor(setReactState) {
         this.state = new GameState();
 
-        this.loop = setInterval(this.update.bind(this), this.tickLength);
+        this.setReactState = setReactState;
     }
 
     init() {
+        this.loop = setInterval(this.update.bind(this), this.tickLength);
+
         this.state.createDesktopIcon(this.iconTypes.folder, {x: 200, y: 150});
         Emitter(this.state.desktopIcons[0], this.state, this.iconTypes.file);
         this.state.createDesktopIcon(this.iconTypes.appStore, {x: 350, y: 150});
@@ -44,6 +47,7 @@ class Game {
 
     update() {
         const {desktopIcons} = this.state;
+
         // update every icon
         desktopIcons.forEach((desktopIcon) => {
             if (desktopIcon.emit) {
@@ -52,11 +56,14 @@ class Game {
         });
 
         // render new state
+        if (this.setReactState) {
+            this.setReactState(this.getReactState);
+        }
     }
 
 
     // convert game state to react state
-    getState() {
+    getReactState(prevState) {
         return {
             desktopIcons: [...this.state.desktopIcons],
             money: this.state.money,

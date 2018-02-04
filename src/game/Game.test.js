@@ -27,19 +27,28 @@ describe('init game function', () => {
 
 describe('update function', () => {
     it('should call emit on all desktopIcons in the state that have emit functions', () => {
-        game.init();
+        game.state.createDesktopIcon(game.iconTypes.folder, {x: 0, y: 0});
 
         Emitter(game.state.desktopIcons[0], game.state, game.iconTypes.file);
         const iconEmitSpy = jest.spyOn(game.state.desktopIcons[0], 'emit');
 
         game.update();
 
-        expect(iconEmitSpy).toHaveBeenCalled();
-        expect(game.state.desktopIcons.length).toEqual(3);
+        expect(iconEmitSpy).toHaveBeenCalledTimes(1);
+        expect(game.state.desktopIcons.length).toEqual(2);
+    });
+
+    it('should invoke the setReactState function', () => {
+        const mockSetReactState = jest.fn();
+        game = new Game(mockSetReactState)
+
+        game.update();
+
+        expect(mockSetReactState).toHaveBeenCalledTimes(1);
     });
 });
 
-describe('get state function', () => {
+describe('get react state function', () => {
     it('should return necessary pieces of game state', () => {
         const initialState = {
             desktopIcons: [...game.state.desktopIcons],
@@ -47,7 +56,7 @@ describe('get state function', () => {
             hddSize: game.state.hddSize
         };
 
-        const state = game.getState();
+        const state = game.getReactState();
 
         expect(state).toEqual(initialState);
     });

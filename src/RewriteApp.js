@@ -6,6 +6,7 @@ class RewriteApp extends Component {
 
     constructor() {
         super();
+        
         const game = new Game();
         game.init();
     }
