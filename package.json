@@ -4,11 +4,14 @@
   "private": true,
   "homepage": ".",
   "dependencies": {
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "react": "^16.2.0",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.2.0",
     "react-draggable": "^3.0.4",
     "react-scripts": "1.0.17",
+    "react-test-renderer": "^16.2.0",
     "react-transition-group": "^2.2.1"
   },
   "scripts": {
