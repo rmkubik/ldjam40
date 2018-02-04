@@ -4,6 +4,10 @@ import Game from './game/Game';
 
 class RewriteApp extends Component {
 
+    state = {
+        desktopIcons: []
+    }
+
     constructor(props) {
         super(props);
 
@@ -12,8 +16,12 @@ class RewriteApp extends Component {
     }
 
     render() {
+        const {desktopIcons} = this.state;
+
         return (
-            <div></div>
+            <div>
+                {desktopIcons.map(desktopIcon => <p>{desktopIcon.icon}</p>)}
+            </div>
         )
     }
 
