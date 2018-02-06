@@ -3,6 +3,7 @@ import {shallow} from 'enzyme';
 import ReactDOM from 'react-dom';
 
 import RewriteApp from './RewriteApp';
+import DesktopIcon from './components/DesktopIcon';
 
 import Game from './game/Game';
 
@@ -28,9 +29,9 @@ describe('App state', () => {
         expect(app.state()).not.toEqual(initialState);
     });
 
-    it('should render desktop icons', () => {
+    it('should render desktop icons as DesktopIcon components', () => {
         jest.runOnlyPendingTimers();
 
-        expect(app.find('p').length).toEqual(3);
+        expect(app.find(DesktopIcon).length).toEqual(3);
     });
 });

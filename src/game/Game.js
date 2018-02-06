@@ -61,7 +61,6 @@ class Game {
         }
     }
 
-
     // convert game state to react state
     getReactState(prevState) {
         return {
