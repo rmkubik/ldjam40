@@ -29,21 +29,23 @@ class DesktopIcon extends React.Component {
                 show: false
             });
             // destory icon after exit animation finishes
-            setTimeout(() => {
-                this.props.destroyIconCallback();
-            }, 150);
+            // setTimeout(() => {
+            //     this.props.destroyIconCallback();
+            // }, 150);
         }
     }
 
     render() {
-        const onDrag = this.props.onDrag
-            ? (e, data) => {
-                this.props.onDrag(this.props.id, {
-                    x: data.x,
-                    y: data.y
-                });
-            }
-            : undefined;
+        // const onDrag = this.props.onDrag
+        //     ? (e, data) => {
+        //         this.props.onDrag(this.props.id, {
+        //             x: data.x,
+        //             y: data.y
+        //         });
+        //     }
+        //     : undefined;
+
+        const onDrag = undefined;
 
         return (
             <Draggable onDrag={onDrag} defaultPosition={this.props.initialPosition}>
