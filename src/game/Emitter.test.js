@@ -2,7 +2,6 @@ import DesktopIcon from './DesktopIcon';
 import Emitter from './Emitter';
 import GameState from './GameState';
 
-let emitter;
 let state;
 
 beforeEach(() => {
@@ -15,6 +14,8 @@ describe('Emitter functional mixin', () => {
         Emitter(state.desktopIcons[0], state, 'a');
 
         expect(state.desktopIcons[0].emit).toEqual(expect.anything());
+        expect(state.desktopIcons[0].emitter.cooldown).toEqual(expect.anything());
+        expect(state.desktopIcons[0].emitter.lastEmitTimestamp).toEqual(expect.anything());
     });
 });
 
