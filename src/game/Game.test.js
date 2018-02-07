@@ -35,7 +35,6 @@ describe('update function', () => {
         game.update();
 
         expect(iconEmitSpy).toHaveBeenCalledTimes(1);
-        expect(game.state.desktopIcons.length).toEqual(2);
     });
 
     it('should invoke the setState function', () => {
