@@ -24,4 +24,21 @@ describe('emit function', () => {
         state.desktopIcons[0].emit();
         expect(state.desktopIcons[1].icon).toEqual('b');
     });
+
+    it('should not emit when on cooldown', () => {
+        state.createDesktopIcon('a', {x: 0, y: 0});
+        const desktopIcon = state.desktopIcons[0];
+
+        Emitter(desktopIcon, state, 'b', 1000);
+        desktopIcon.lastEmitTimestamp = new Date('2018-01-01 12:00:00:0000').getTime();
+        Date.now = jest
+            .genMockFunction()
+            .mockReturnValue(
+                new Date(`2018-01-01 12:00:00:${desktopIcon.emitCooldown - 1}`).getTime()
+            );
+
+        desktopIcon.emit();
+
+        expect(state.desktopIcons.length).toEqual(1);
+    });
 });

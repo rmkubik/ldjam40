@@ -1,5 +1,4 @@
 import GameState from './GameState';
-import DesktopIcon from './DesktopIcon';
 import Emitter from './Emitter';
 
 class Game {
