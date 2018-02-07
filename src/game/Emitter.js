@@ -1,4 +1,4 @@
-const Emitter = (desktopIcon, state, spawnedIcon) => {
+const Emitter = (desktopIcon, state, spawnedIcon, cooldown) => {
     const emit = () => {
         const nextEmitTimestamp = desktopIcon.emitter.lastEmitTimestamp
             + desktopIcon.emitter.cooldown;
@@ -15,7 +15,7 @@ const Emitter = (desktopIcon, state, spawnedIcon) => {
             emit,
             emitter: {
                 lastEmitTimestamp: Date.now(),
-                cooldown: 1000
+                cooldown
             }
         }
     )

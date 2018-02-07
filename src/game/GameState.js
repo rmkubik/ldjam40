@@ -16,10 +16,12 @@ class GameState {
     }
 
     createDesktopIcon(icon, position) {
-        this.desktopIcons = [
-              ...this.desktopIcons,
-              new DesktopIcon(icon, position, this.getNextIconId())
-        ];
+        if (this.desktopIcons.length < this.hddSize) {
+            this.desktopIcons = [
+                  ...this.desktopIcons,
+                  new DesktopIcon(icon, position, this.getNextIconId())
+            ];
+        }
     }
 
     removeDesktopIcon(id) {

@@ -11,7 +11,7 @@ beforeEach(() => {
 describe('Emitter functional mixin', () => {
     it('should add the emit function to an icon\'s prototype', () => {
         state.createDesktopIcon('a', {x: 0, y: 0});
-        Emitter(state.desktopIcons[0], state, 'a');
+        Emitter(state.desktopIcons[0], state, 'a', 1000);
 
         expect(state.desktopIcons[0].emit).toEqual(expect.anything());
         expect(state.desktopIcons[0].emitter.cooldown).toEqual(expect.anything());
@@ -20,7 +20,7 @@ describe('Emitter functional mixin', () => {
 });
 
 describe('emit function', () => {
-    it('should not emit when on cooldown', () => {
+    it('should not create icon when on cooldown', () => {
         state.createDesktopIcon('a', {x: 0, y: 0});
         const desktopIcon = state.desktopIcons[0];
 
@@ -38,7 +38,7 @@ describe('emit function', () => {
         expect(state.desktopIcons.length).toEqual(1);
     });
 
-    it('should emit icon of correct type when off cooldown', () => {
+    it('should create icon of correct type when off cooldown', () => {
         state.createDesktopIcon('a', {x: 0, y: 0});
         const desktopIcon = state.desktopIcons[0];
 
@@ -55,6 +55,5 @@ describe('emit function', () => {
 
         expect(state.desktopIcons.length).toEqual(2);
         expect(state.desktopIcons[1].icon).toEqual('b');
-
     });
 });

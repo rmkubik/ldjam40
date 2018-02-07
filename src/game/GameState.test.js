@@ -45,6 +45,18 @@ describe('create desktop icon function', () => {
         const desktopIcon = state.desktopIcons[0];
         expect(desktopIcon.id).toEqual(expect.anything());
     });
+
+    it('should not create a new DesktopIcon if hdd is full', () => {
+        const icon = "test";
+        const position = {x: 0, y: 0};
+
+        state.hddSize = 1;  
+
+        state.createDesktopIcon(icon, position);
+        state.createDesktopIcon(icon, position);
+
+        expect(state.desktopIcons.length).toEqual(1);
+    });
 });
 
 describe('remove icon from state function', () => {
