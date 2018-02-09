@@ -26,6 +26,7 @@ describe('consume function', () => {
 
         const desktopIcon = state.desktopIcons[0];
         Consumer(desktopIcon, state, 'b', 1000, 5);
+        consumerOffCooldown(desktopIcon);
 
         desktopIcon.consume();
 
@@ -39,6 +40,7 @@ describe('consume function', () => {
 
         const desktopIcon = state.desktopIcons[0];
         Consumer(desktopIcon, state, 'b', 1000, 5);
+        consumerOffCooldown(desktopIcon);
 
         desktopIcon.consume();
 
@@ -50,6 +52,7 @@ describe('consume function', () => {
 
         const desktopIcon = state.desktopIcons[0];
         Consumer(desktopIcon, state, 'a', 1000, 5);
+        consumerOffCooldown(desktopIcon);
 
         desktopIcon.consume();
 
@@ -63,6 +66,7 @@ describe('consume function', () => {
 
         const desktopIcon = state.desktopIcons[0];
         Consumer(desktopIcon, state, 'b', 1000, 5);
+        consumerOffCooldown(desktopIcon);
 
         const closerIconId = state.desktopIcons[2].id;
 
@@ -78,6 +82,7 @@ describe('consume function', () => {
 
         const desktopIcon = state.desktopIcons[0];
         Consumer(desktopIcon, state, 'b', 1000, 5);
+        consumerOffCooldown(desktopIcon);
 
         desktopIcon.consume();
 
