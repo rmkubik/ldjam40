@@ -83,4 +83,23 @@ describe('consume function', () => {
 
         expect(state.desktopIcons.length).toEqual(2);
     });
+
+    it('should not consume icons when on cooldown', () => {
+        state.createDesktopIcon('a', {x: 0, y: 0});
+        state.createDesktopIcon('b', {x: 0, y: 0});
+
+        const desktopIcon = state.desktopIcons[0];
+        Consumer(desktopIcon, state, 'b', 1000, 5);
+        desktopIcon.consumer.lastConsumeTimestamp = new Date('2018-01-01 12:00:00:0000').getTime();
+        Date.now = jest
+            .genMockFunction()
+            .mockReturnValue(
+                new Date('2018-01-01 12:00:00:0000').getTime()
+                    + desktopIcon.consumer.cooldown - 1
+            );
+
+        desktopIcon.consume();
+
+        expect(state.desktopIcons.length).toEqual(2);
+    });
 });
