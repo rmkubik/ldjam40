@@ -1,18 +1,21 @@
-const Consumer = (desktopIcon, state, consumedIcon, cooldown) => {
+const Consumer = (consumerIcon, state, consumedIcon, cooldown) => {
     const consume = () => {
         // find all desktopIcons of given type
         const consumableIcons = state.desktopIcons.filter((desktopIcon) => {
-            return desktopIcon.icon === consumedIcon;
+            return desktopIcon.icon === consumedIcon
+                && consumerIcon.id !== desktopIcon.id;
         });
         // is consumer off cooldown?
         // is target icon in range?
         // which icon is closest?
         // removeDesktopIcon
-        state.removeDesktopIcon(consumableIcons[0].id);
+        if (consumableIcons.length > 0) {
+            state.removeDesktopIcon(consumableIcons[0].id);
+        }
     }
 
     Object.assign(
-        desktopIcon,
+        consumerIcon,
         {
             consume,
             consumer: {
