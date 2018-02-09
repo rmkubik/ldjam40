@@ -55,4 +55,20 @@ describe('consume function', () => {
 
         expect(state.desktopIcons.length).toEqual(1);
     });
+
+    it('should consume closest icon', () => {
+        state.createDesktopIcon('a', {x: 0, y: 0});
+        state.createDesktopIcon('b', {x: 0, y: 1});
+        state.createDesktopIcon('b', {x: 0, y: 0});
+
+        const desktopIcon = state.desktopIcons[0];
+        Consumer(desktopIcon, state, 'b', 1000);
+
+        const closerIconId = state.desktopIcons[2].id;
+
+        desktopIcon.consume();
+
+        expect(state.desktopIcons.length).toEqual(2);
+        expect(state.desktopIcons.every(icon => icon.id !== closerIconId)).toBe(true);
+    });
 });
