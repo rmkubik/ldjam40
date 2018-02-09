@@ -83,6 +83,42 @@ describe('remove icon from state function', () => {
 
         expect(state.desktopIcons.length).toEqual(3);
     });
+
+    it('should remove icons from state by index', () => {
+        state.desktopIcons = [
+            new DesktopIcon('a', {}, 1),
+            new DesktopIcon('b', {}, 2),
+            new DesktopIcon('c', {}, 3)
+        ];
+
+        state.removeDesktopIconByIndex(0);
+
+        expect(state.desktopIcons.length).toEqual(2);
+    });
+
+    it('should remove no icons from state if index is < 0', () => {
+        state.desktopIcons = [
+            new DesktopIcon('a', {}, 1),
+            new DesktopIcon('b', {}, 2),
+            new DesktopIcon('c', {}, 3)
+        ];
+
+        state.removeDesktopIcon(-1);
+
+        expect(state.desktopIcons.length).toEqual(3);
+    });
+
+    it('should remove no icons from state if index is > length', () => {
+        state.desktopIcons = [
+            new DesktopIcon('a', {}, 1),
+            new DesktopIcon('b', {}, 2),
+            new DesktopIcon('c', {}, 3)
+        ];
+
+        state.removeDesktopIcon(4);
+
+        expect(state.desktopIcons.length).toEqual(3);
+    });
 });
 
 describe('getNextIconId function', () => {

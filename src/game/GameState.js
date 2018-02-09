@@ -25,13 +25,17 @@ class GameState {
     }
 
     removeDesktopIcon(id) {
-        const iconIndex = this.findDesktopIconIndexById(id);
+        const index = this.findDesktopIconIndexById(id);
 
-        if (iconIndex === -1) return;
+        this.removeDesktopIconByIndex(index);
+    }
+
+    removeDesktopIconByIndex(index) {
+        if (index === -1) return;
 
         this.desktopIcons = [
-          ...this.desktopIcons.slice(0, iconIndex),
-          ...this.desktopIcons.slice(iconIndex + 1)
+          ...this.desktopIcons.slice(0, index),
+          ...this.desktopIcons.slice(index + 1)
         ];
     }
 
