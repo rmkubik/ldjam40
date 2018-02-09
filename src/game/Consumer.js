@@ -2,14 +2,18 @@ import {findEuclideanDistance} from './Helpers';
 
 const Consumer = (consumerIcon, state, consumedIcon, cooldown, range) => {
     const consume = () => {
+        const nextConsumeTimestamp = consumerIcon.consumer.lastConsumeTimestamp
+            + consumerIcon.consumer.cooldown;
+        const currentTimestamp = Date.now();
+
+        if (currentTimestamp < nextConsumeTimestamp) return;
+
         const consumableIcons = state.desktopIcons.filter((desktopIcon) => {
             return desktopIcon.icon === consumedIcon
                 && consumerIcon.id !== desktopIcon.id;
         });
 
         if (consumableIcons.length === 0) return;
-        // is consumer off cooldown?
-        // is target icon in range?
 
         const closestIcon = consumableIcons.reduce((closestIcon, currentIcon) => {
             return findEuclideanDistance(currentIcon.position, consumerIcon.position)
