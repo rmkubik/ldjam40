@@ -1,6 +1,6 @@
 import {findEuclideanDistance} from './Helpers';
 
-const Consumer = (consumerIcon, state, consumedIcon, cooldown) => {
+const Consumer = (consumerIcon, state, consumedIcon, cooldown, range) => {
     const consume = () => {
         const consumableIcons = state.desktopIcons.filter((desktopIcon) => {
             return desktopIcon.icon === consumedIcon
@@ -18,7 +18,9 @@ const Consumer = (consumerIcon, state, consumedIcon, cooldown) => {
                     : closestIcon
         });
 
-        state.removeDesktopIcon(closestIcon.id);
+        if (findEuclideanDistance(closestIcon.position, consumerIcon.position) <= range) {
+            state.removeDesktopIcon(closestIcon.id);
+        }
     }
 
     Object.assign(
