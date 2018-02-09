@@ -90,16 +90,30 @@ describe('consume function', () => {
 
         const desktopIcon = state.desktopIcons[0];
         Consumer(desktopIcon, state, 'b', 1000, 5);
-        desktopIcon.consumer.lastConsumeTimestamp = new Date('2018-01-01 12:00:00:0000').getTime();
-        Date.now = jest
-            .genMockFunction()
-            .mockReturnValue(
-                new Date('2018-01-01 12:00:00:0000').getTime()
-                    + desktopIcon.consumer.cooldown - 1
-            );
+        consumerOnCooldown(desktopIcon);
 
         desktopIcon.consume();
 
         expect(state.desktopIcons.length).toEqual(2);
     });
 });
+
+function consumerOnCooldown(consumerIcon) {
+    consumerIcon.consumer.lastConsumeTimestamp = new Date('2018-01-01 12:00:00:0000').getTime();
+    Date.now = jest
+        .genMockFunction()
+        .mockReturnValue(
+            new Date('2018-01-01 12:00:00:0000').getTime()
+                + consumerIcon.consumer.cooldown - 1
+        );
+}
+
+function consumerOffCooldown(consumerIcon) {
+    consumerIcon.consumer.lastConsumeTimestamp = new Date('2018-01-01 12:00:00:0000').getTime();
+    Date.now = jest
+        .genMockFunction()
+        .mockReturnValue(
+            new Date('2018-01-01 12:00:00:0000').getTime()
+                + consumerIcon.consumer.cooldown + 1
+        );
+}
