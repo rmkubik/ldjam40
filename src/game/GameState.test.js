@@ -50,7 +50,7 @@ describe('create desktop icon function', () => {
         const icon = "test";
         const position = {x: 0, y: 0};
 
-        state.hddSize = 1;  
+        state.hddSize = 1;
 
         state.createDesktopIcon(icon, position);
         state.createDesktopIcon(icon, position);
