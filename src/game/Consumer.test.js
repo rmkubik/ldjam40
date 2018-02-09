@@ -31,4 +31,28 @@ describe('consume function', () => {
 
         expect(state.desktopIcons.length).toEqual(1);
     });
+
+    it('should consume only one icon', () => {
+        state.createDesktopIcon('a', {x: 0, y: 0});
+        state.createDesktopIcon('b', {x: 0, y: 0});
+        state.createDesktopIcon('b', {x: 0, y: 0});
+
+        const desktopIcon = state.desktopIcons[0];
+        Consumer(desktopIcon, state, 'b', 1000);
+
+        desktopIcon.consume();
+
+        expect(state.desktopIcons.length).toEqual(2);
+    });
+
+    it('should not consume self', () => {
+        state.createDesktopIcon('a', {x: 0, y: 0});
+
+        const desktopIcon = state.desktopIcons[0];
+        Consumer(desktopIcon, state, 'a', 1000);
+
+        desktopIcon.consume();
+
+        expect(state.desktopIcons.length).toEqual(1);
+    });
 });
