@@ -44,6 +44,10 @@ class GameState {
             return desktopIcon.id === id;
         });
     }
+
+    updateDesktopIconPosition(id, position) {
+        this.desktopIcons[this.findDesktopIconIndexById(id)].position = position;
+    }
 }
 
 export default GameState;
