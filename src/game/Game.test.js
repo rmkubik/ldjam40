@@ -73,3 +73,15 @@ describe('get react state function', () => {
         expect(state).toEqual(initialState);
     });
 });
+
+describe('set desktop icon position', () => {
+    it('should set posiiton of an icon', () => {
+        game.state.createDesktopIcon(game.iconTypes.folder, {x: 0, y: 0});
+        const desktopIcon = game.state.desktopIcons[0];
+        const newPosition = { x: 100, y: 100 };
+
+        game.state.updateDesktopIconPosition(desktopIcon.id, newPosition);
+
+        expect(desktopIcon.position).toEqual(newPosition);
+    });
+});
