@@ -1,5 +1,6 @@
 import GameState from './GameState';
 import Emitter from './Emitter';
+import Consumer from './Consumer';
 
 class Game {
 
@@ -51,6 +52,9 @@ class Game {
         desktopIcons.forEach((desktopIcon) => {
             if (desktopIcon.emit) {
                 desktopIcon.emit();
+            }
+            if (desktopIcon.consume) {
+                desktopIcon.consume();
             }
         });
 
