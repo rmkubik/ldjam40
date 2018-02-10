@@ -1,3 +1,4 @@
+import Consumer from './Consumer';
 import DesktopIcon from './DesktopIcon';
 import Emitter from './Emitter';
 import Game from './Game';
@@ -35,6 +36,17 @@ describe('update function', () => {
         game.update();
 
         expect(iconEmitSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should call consume on all desktopIcons in the state that have emit functions', () => {
+        game.state.createDesktopIcon(game.iconTypes.folder, {x: 0, y: 0});
+
+        Consumer(game.state.desktopIcons[0], game.state, game.iconTypes.file);
+        const iconConsumeSpy = jest.spyOn(game.state.desktopIcons[0], 'consume');
+
+        game.update();
+
+        expect(iconConsumeSpy).toHaveBeenCalledTimes(1);
     });
 
     it('should invoke the setState function', () => {
