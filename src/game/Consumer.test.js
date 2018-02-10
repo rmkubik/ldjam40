@@ -101,6 +101,19 @@ describe('consume function', () => {
 
         expect(state.desktopIcons.length).toEqual(2);
     });
+
+    it('should go on cooldown after consuming an icon', () => {
+        state.createDesktopIcon('a', {x: 0, y: 0});
+        state.createDesktopIcon('b', {x: 0, y: 0});
+
+        const desktopIcon = state.desktopIcons[0];
+        Consumer(desktopIcon, state, 'b', 1000, 5);
+        consumerOffCooldown(desktopIcon);
+
+        desktopIcon.consume();
+
+        expect(desktopIcon.consumer.lastConsumeTimestamp).toEqual(Date.now());
+    });
 });
 
 function consumerOnCooldown(consumerIcon) {
