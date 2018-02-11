@@ -12,8 +12,8 @@ class RewriteApp extends Component {
     constructor(props) {
         super(props);
 
-        const game = new Game(this);
-        game.init();
+        this.game = new Game(this);
+        this.game.init();
     }
 
     render() {
@@ -22,6 +22,7 @@ class RewriteApp extends Component {
         return (
             <div>
                 {desktopIcons.map(desktopIcon => <DesktopIcon
+                    onDrag={this.game.state.updateDesktopIconPosition}
                     icon={desktopIcon.icon}
                     initialPosition={desktopIcon.initialPosition}
                     key={desktopIcon.id}

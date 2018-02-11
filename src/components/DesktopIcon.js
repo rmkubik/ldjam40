@@ -20,15 +20,13 @@ class DesktopIcon extends React.Component {
     }
 
     componentDidMount = () => {
-        this.setState({show: true});
+        this.setState({ show: true });
     }
 
     componentWillReceiveProps = (nextProps) => {
         if (nextProps.destroyIcon === true) {
-            this.setState({
-                show: false
-            });
-            // destory icon after exit animation finishes
+            this.setState({ show: false });
+            // destroy icon after exit animation finishes
             // setTimeout(() => {
             //     this.props.destroyIconCallback();
             // }, 150);
@@ -36,16 +34,14 @@ class DesktopIcon extends React.Component {
     }
 
     render() {
-        // const onDrag = this.props.onDrag
-        //     ? (e, data) => {
-        //         this.props.onDrag(this.props.id, {
-        //             x: data.x,
-        //             y: data.y
-        //         });
-        //     }
-        //     : undefined;
-
-        const onDrag = undefined;
+        const onDrag = this.props.onDrag
+            ? (e, data) => {
+                this.props.onDrag(this.props.id, {
+                    x: data.x,
+                    y: data.y
+                });
+            }
+            : undefined;
 
         return (
             <Draggable onDrag={onDrag} defaultPosition={this.props.initialPosition}>

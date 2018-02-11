@@ -45,7 +45,7 @@ class GameState {
         });
     }
 
-    updateDesktopIconPosition(id, position) {
+    updateDesktopIconPosition = (id, position) => {
         this.desktopIcons[this.findDesktopIconIndexById(id)].position = position;
     }
 }
