@@ -121,6 +121,18 @@ describe('remove icon from state function', () => {
     });
 });
 
+describe('setDesktopIconDestroyed', () => {
+    it('should set icon destroyed property to true', () => {
+        state.desktopIcons = [
+            new DesktopIcon('a', {}, 1),
+        ];
+
+        state.setDesktopIconDestroyed(1);
+
+        expect(state.desktopIcons[0].destroyed).toBe(true);
+    });
+});
+
 describe('getNextIconId function', () => {
     it('should return a number', () => {
         const id = state.getNextIconId();
