@@ -30,6 +30,12 @@ class GameState {
         this.removeDesktopIconByIndex(index);
     }
 
+    setDesktopIconDestroyed(id) {
+        const index = this.findDesktopIconIndexById(id);
+
+        this.desktopIcons[index].destroyed = true;
+    }
+
     removeDesktopIconByIndex(index) {
         if (index === -1) return;
 
