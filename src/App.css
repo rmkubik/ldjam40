@@ -10,7 +10,6 @@ body {
 
 .spawn-enter {
   animation-duration: 150ms;
-  /* transform-origin: right bottom; */
 }
 
 .spawn-enter.spawn-enter-active {
@@ -19,7 +18,6 @@ body {
 
 .spawn-exit {
   animation-duration: 150ms;
-  /* background-color: red; */
 }
 
 .spawn-exit.spawn-exit-active {
@@ -51,22 +49,4 @@ body {
     opacity: 0;
     transform: scale3d(0, 0, 0);
   }
-}
-
-.fade-enter {
-  opacity: 0.01;
-}
-
-.fade-enter.fade-enter-active {
-  opacity: 1;
-  transition: opacity 1000ms ease-in;
-}
-
-.fade-exit {
-  opacity: 1;
-}
-
-.fade-exit.fade-exit-active {
-  opacity: 0.01;
-  transition: opacity 800ms ease-in;
 }
