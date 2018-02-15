@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Game from './game/Game';
-import DesktopIcon from './components/DesktopIcon';
+import DesktopIconContainer from './components/DesktopIconContainer';
 
 class RewriteApp extends Component {
 
@@ -20,15 +20,10 @@ class RewriteApp extends Component {
         const {desktopIcons} = this.state;
 
         return (
-            <div>
-                {desktopIcons.map(desktopIcon => <DesktopIcon
-                    onDrag={this.game.state.updateDesktopIconPosition}
-                    icon={desktopIcon.icon}
-                    initialPosition={desktopIcon.initialPosition}
-                    key={desktopIcon.id}
-                    id={desktopIcon.id}
-                />)}
-            </div>
+            <DesktopIconContainer
+                desktopIcons = {desktopIcons}
+                updateDesktopIconPosition={this.game.state.updateDesktopIconPosition}
+            />
         )
     }
 
