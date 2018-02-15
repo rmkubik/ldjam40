@@ -24,6 +24,7 @@ const Consumer = (consumerIcon, state, consumedIcon, cooldown, range) => {
 
         if (findEuclideanDistance(closestIcon.position, consumerIcon.position) <= range) {
             state.removeDesktopIcon(closestIcon.id);
+            state.money++;
             consumerIcon.consumer.lastConsumeTimestamp = currentTimestamp;
         }
     }
