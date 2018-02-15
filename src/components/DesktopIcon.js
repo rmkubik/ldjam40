@@ -3,10 +3,12 @@ import Draggable from 'react-draggable';
 import { CSSTransition } from 'react-transition-group'
 import '../App.css';
 
+const fadeTimeout = 150;
+
 const Fade = ({ children, ...props }) => (
     <CSSTransition
       {...props}
-      timeout={150}
+      timeout={fadeTimeout}
       classNames="spawn"
     >
       {children}
@@ -27,9 +29,9 @@ class DesktopIcon extends React.Component {
         if (nextProps.destroyIcon === true) {
             this.setState({ show: false });
             // destroy icon after exit animation finishes
-            // setTimeout(() => {
-            //     this.props.destroyIconCallback();
-            // }, 150);
+            setTimeout(() => {
+                this.props.destroyIconCallback(this.props.id);
+            }, fadeTimeout);
         }
     }
 
