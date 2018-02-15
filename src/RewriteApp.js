@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Game from './game/Game';
 import DesktopIconContainer from './components/DesktopIconContainer';
+import MenuBar from './components/MenuBar';
 
 class RewriteApp extends Component {
 
@@ -17,13 +18,18 @@ class RewriteApp extends Component {
     }
 
     render() {
-        const {desktopIcons} = this.state;
+        const {desktopIcons, money} = this.state;
 
         return (
-            <DesktopIconContainer
-                desktopIcons = {desktopIcons}
-                updateDesktopIconPosition={this.game.state.updateDesktopIconPosition}
-            />
+            <div>
+                <MenuBar
+                    money={money}
+                />
+                <DesktopIconContainer
+                    desktopIcons = {desktopIcons}
+                    updateDesktopIconPosition={this.game.state.updateDesktopIconPosition}
+                />
+            </div>
         )
     }
 
