@@ -15,7 +15,7 @@ class GameState {
         return this._nextIconId++;
     }
 
-    createDesktopIcon(icon, position) {
+    createDesktopIcon = (icon, position) => {
         if (this.desktopIcons.length < this.hddSize) {
             this.desktopIcons = [
                   ...this.desktopIcons,
