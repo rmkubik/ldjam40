@@ -24,6 +24,21 @@ class RewriteApp extends Component {
             <div>
                 <MenuBar
                     money={money}
+                    createButtons={[
+                        {
+                            icon: this.game.iconTypes.folder,
+                            price: 10
+                        },
+                        {
+                            icon: this.game.iconTypes.appStore,
+                            price: 20
+                        },
+                        {
+                            icon: this.game.iconTypes.hdd,
+                            price: 50
+                        }
+                    ]}
+                    createDesktopIcon={this.game.state.createDesktopIcon}
                 />
                 <DesktopIconContainer
                     desktopIcons = {desktopIcons}
