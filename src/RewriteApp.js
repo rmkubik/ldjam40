@@ -38,7 +38,7 @@ class RewriteApp extends Component {
                             price: 50
                         }
                     ]}
-                    createDesktopIcon={this.game.state.createDesktopIcon}
+                    purchaseDesktopIcon={this.game.purchaseDesktopIcon}
                 />
                 <DesktopIconContainer
                     desktopIcons = {desktopIcons}

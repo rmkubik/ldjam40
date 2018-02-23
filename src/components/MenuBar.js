@@ -8,7 +8,7 @@ function MenuBar(props) {
             <p className="menubar">{`$${props.money}`}</p>
             {props.createButtons.map((createButton, index) => {
                 return (<PurchaseButton
-                    createDesktopIcon={props.createDesktopIcon}
+                    purchaseDesktopIcon={props.purchaseDesktopIcon}
                     icon={createButton.icon}
                     price={createButton.price}
                     key={index}

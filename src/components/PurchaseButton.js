@@ -1,9 +1,9 @@
 import React from 'react';
 
 function PurchaseButton(props) {
-    const {icon, createDesktopIcon, price} = props;
+    const {icon, purchaseDesktopIcon, price} = props;
     return (
-        <button onClick={() => createDesktopIcon(icon, {x: 0, y: 0})}>
+        <button onClick={() => purchaseDesktopIcon(icon, price, {x: 0, y: 0})}>
             {`${icon} - $${price}`}
         </button>
     )
