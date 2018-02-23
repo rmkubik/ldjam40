@@ -44,11 +44,12 @@ class Game {
     init() {
         this.loop = setInterval(this.update.bind(this), this.tickLength);
 
-        this.state.createDesktopIcon(this.iconTypes.folder, {x: 200, y: 150});
-        Emitter(this.state.desktopIcons[0], this.state, this.iconTypes.file, 1000);
-        this.state.createDesktopIcon(this.iconTypes.appStore, {x: 350, y: 150});
-        Consumer(this.state.desktopIcons[1], this.state, this.iconTypes.file, 1000, 100);
-        this.state.createDesktopIcon(this.iconTypes.trash, {x: 475, y: 375});
+        const folder = this.state.createDesktopIcon(this.iconTypes.folder, {x: 200, y: 150});
+        Emitter(folder, this.state, this.iconTypes.file, 1000);
+        const appStore = this.state.createDesktopIcon(this.iconTypes.appStore, {x: 350, y: 150});
+        Consumer(appStore, this.state, this.iconTypes.file, 1000, 50);
+        const trash = this.state.createDesktopIcon(this.iconTypes.trash, {x: 475, y: 375});
+        Consumer(trash, this.state, false, 1000, 50);
     }
 
     update() {
