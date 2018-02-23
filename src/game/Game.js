@@ -63,6 +63,8 @@ class Game {
         if (this.rootComponent) {
             this.rootComponent.setState(this.getReactState.bind(this));
         }
+
+        // TODO: clean up destroyed icons after they're finished timing out
     }
 
     // convert game state to react state
@@ -74,7 +76,6 @@ class Game {
         };
     }
 
-    // purchase new icon
     purchaseDesktopIcon = (icon, cost, position) => {
         const {money, hddSize, desktopIcons} = this.state;
 
@@ -104,10 +105,6 @@ class Game {
                 break;
         }
     }
-
-    // consume icon
-
-    // emit new icon
 }
 
 export default Game;
