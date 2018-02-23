@@ -75,6 +75,14 @@ class Game {
     }
 
     // purchase new icon
+    purchaseDesktopIcon = (icon, cost, position) => {
+        const {money, hddSize, desktopIcons} = this.state;
+
+        if (money >= cost && desktopIcons.length < hddSize) {
+            this.state.createDesktopIcon(icon, position);
+            this.state.money = money - cost;
+        }
+    }
 
     // consume icon
 
