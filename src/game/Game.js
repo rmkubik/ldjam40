@@ -79,8 +79,21 @@ class Game {
         const {money, hddSize, desktopIcons} = this.state;
 
         if (money >= cost && desktopIcons.length < hddSize) {
-            this.state.createDesktopIcon(icon, position);
+            const newIcon = this.state.createDesktopIcon(icon, position);
             this.state.money = money - cost;
+            switch(icon) {
+                case this.iconTypes.folder:
+                    Emitter(newIcon, this.state, this.iconTypes.file, 1000);
+                    break;
+
+                case this.iconTypes.appStore:
+                    Consumer(newIcon, this.state, this.iconTypes.file, 1000, 100);
+                    break;
+                    
+                default:
+                    console.log('Unimplemented Icon!');
+                    break;
+            }
         }
     }
 
