@@ -84,7 +84,7 @@ class Game {
         const {money, hddSize, desktopIcons} = this.state;
 
         if (money >= cost && desktopIcons.length < hddSize) {
-            const newIcon = this.state.createDesktopIcon(icon, position);
+            const newIcon = this.state.createDesktopIcon(icon, this.getRandomPositionOnScreen());
             this.state.money = money - cost;
             this.modifyPurchasedDesktopIcon(newIcon);
         }
