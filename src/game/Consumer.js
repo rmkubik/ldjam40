@@ -8,10 +8,15 @@ const Consumer = (consumerIcon, state, consumedIcon, cooldown, range) => {
 
         if (currentTimestamp < nextConsumeTimestamp) return;
 
-        const consumableIcons = state.desktopIcons.filter((desktopIcon) => {
-            return desktopIcon.icon === consumedIcon
-                && consumerIcon.id !== desktopIcon.id;
-        });
+        const consumeableFilter = consumedIcon ?
+            (desktopIcon) => {
+                return desktopIcon.icon === consumedIcon
+                    && consumerIcon.id !== desktopIcon.id;
+            }
+            :
+            (desktopIcon) => consumerIcon.id !== desktopIcon.id;
+
+        const consumableIcons = state.desktopIcons.filter(consumeableFilter);
 
         if (consumableIcons.length === 0) return;
 
