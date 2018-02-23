@@ -48,6 +48,7 @@ class Game {
         Emitter(this.state.desktopIcons[0], this.state, this.iconTypes.file, 1000);
         this.state.createDesktopIcon(this.iconTypes.appStore, {x: 350, y: 150});
         Consumer(this.state.desktopIcons[1], this.state, this.iconTypes.file, 1000, 100);
+        this.state.createDesktopIcon(this.iconTypes.trash, {x: 475, y: 375});
     }
 
     update() {
