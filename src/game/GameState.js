@@ -16,12 +16,15 @@ class GameState {
     }
 
     createDesktopIcon = (icon, position) => {
+        let desktopIcon;
         if (this.desktopIcons.length < this.hddSize) {
+            desktopIcon = new DesktopIcon(icon, position, this.getNextIconId());
             this.desktopIcons = [
                   ...this.desktopIcons,
-                  new DesktopIcon(icon, position, this.getNextIconId())
+                  desktopIcon
             ];
         }
+        return desktopIcon;
     }
 
     removeDesktopIcon(id) {
