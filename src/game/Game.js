@@ -10,7 +10,7 @@ class Game {
     setReactState;
     screen = {
         width: 500,
-        height: 500
+        height: 400
     }
 
     iconTypes = {
