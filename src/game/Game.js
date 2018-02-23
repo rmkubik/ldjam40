@@ -109,6 +109,13 @@ class Game {
                 break;
         }
     }
+
+    getRandomPositionOnScreen = () => {
+        return {
+            x: Math.floor(Math.random() * this.screen.width),
+            y: Math.floor(Math.random() * this.screen.height),
+        }
+    }
 }
 
 export default Game;
