@@ -8,6 +8,10 @@ class Game {
     state;
     loop;
     setReactState;
+    screen = {
+        width: 500,
+        height: 500
+    }
 
     iconTypes = {
       file: "📄",
