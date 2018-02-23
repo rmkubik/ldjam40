@@ -18,7 +18,11 @@ class RewriteApp extends Component {
     }
 
     render() {
-        const {desktopIcons, money} = this.state;
+        const {desktopIcons, money, hddSize} = this.state;
+        const hdd = {
+            current: desktopIcons.length,
+            max: hddSize
+        }
 
         return (
             <div>
@@ -39,6 +43,7 @@ class RewriteApp extends Component {
                         }
                     ]}
                     purchaseDesktopIcon={this.game.purchaseDesktopIcon}
+                    hdd={hdd}
                 />
                 <DesktopIconContainer
                     desktopIcons = {desktopIcons}
