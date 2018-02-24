@@ -127,6 +127,34 @@ describe('consume function', () => {
 
         expect(desktopIcon.consumer.lastConsumeTimestamp).toEqual(Date.now());
     });
+
+    it('should call onConsume if defined when an icon is consumed', () => {
+        state.createDesktopIcon('a', {x: 0, y: 0});
+        state.createDesktopIcon('b', {x: 0, y: 0});
+        const onConsumeSpy = jest.fn();
+
+        const desktopIcon = state.desktopIcons[0];
+        Consumer(desktopIcon, state, 'b', 1000, 5, onConsumeSpy);
+        consumerOffCooldown(desktopIcon);
+
+        desktopIcon.consume();
+
+        expect(onConsumeSpy).toHaveBeenCalledTimes(1);
+    });
+
+
+    it('should not call onConsume when an icon is not consumed', () => {
+        state.createDesktopIcon('a', {x: 0, y: 0});
+        const onConsumeSpy = jest.fn();
+
+        const desktopIcon = state.desktopIcons[0];
+        Consumer(desktopIcon, state, 'b', 1000, 5, onConsumeSpy);
+        consumerOffCooldown(desktopIcon);
+
+        desktopIcon.consume();
+
+        expect(onConsumeSpy).toHaveBeenCalledTimes(0);
+    });
 });
 
 function consumerOnCooldown(consumerIcon) {
