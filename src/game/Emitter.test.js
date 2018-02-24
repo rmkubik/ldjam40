@@ -28,19 +28,22 @@ describe('emit function', () => {
 
         desktopIcon.emit();
 
-        expect(state.desktopIcons.length).toEqual(1);
+        expect(desktopIcon.emitter.emitted).toEqual(0);
     });
 
     it('should create icon of correct type when off cooldown', () => {
         const desktopIcon = state.createDesktopIcon('a', {x: 0, y: 0});
 
-        Emitter(desktopIcon, state, 'b', 1000);
+        let emittedIconCopy;
+        Emitter(desktopIcon, state, 'b', 1000, (spawnedIcon) => {
+            emittedIconCopy = spawnedIcon;
+        });
         emitterOffCooldown(desktopIcon);
 
         desktopIcon.emit();
 
-        expect(state.desktopIcons.length).toEqual(2);
-        expect(state.desktopIcons[1].icon).toEqual('b');
+        expect(desktopIcon.emitter.emitted).toEqual(1);
+        expect(emittedIconCopy).toEqual('b');
     });
 
     it('should call onEmit if defined when an icon is emitted', () => {
