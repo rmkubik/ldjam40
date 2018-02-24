@@ -11,7 +11,7 @@ beforeEach(() => {
 describe('Consumer functional mixin', () => {
     it('should add the consume function to an icon\'s prototype', () => {
         state.createDesktopIcon('a', {x: 0, y: 0});
-        Consumer(state.desktopIcons[0], state, 'a', 1000);
+        Consumer(state.desktopIcons[0], 'a', 1000);
 
         expect(state.desktopIcons[0].consume).toEqual(expect.anything());
         expect(state.desktopIcons[0].consumer.cooldown).toEqual(expect.anything());
@@ -24,10 +24,10 @@ describe('consume function', () => {
         const desktopIcon = state.createDesktopIcon('a', {x: 0, y: 0});
         state.createDesktopIcon('b', {x: 0, y: 0});
 
-        Consumer(desktopIcon, state, 'b', 1000, 5);
+        Consumer(desktopIcon, 'b', 1000, 5);
         consumerOffCooldown(desktopIcon);
 
-        desktopIcon.consume();
+        desktopIcon.consume(state.desktopIcons);
 
         expect(desktopIcon.consumer.consumed).toEqual(1);
     });
@@ -37,10 +37,10 @@ describe('consume function', () => {
         state.createDesktopIcon('b', {x: 0, y: 0});
         state.createDesktopIcon('b', {x: 0, y: 0});
 
-        Consumer(desktopIcon, state, 'b', 1000, 5);
+        Consumer(desktopIcon, 'b', 1000, 5);
         consumerOffCooldown(desktopIcon);
 
-        desktopIcon.consume();
+        desktopIcon.consume(state.desktopIcons);
 
         expect(desktopIcon.consumer.consumed).toEqual(1);
     });
@@ -48,10 +48,10 @@ describe('consume function', () => {
     it('should not consume self', () => {
         const desktopIcon = state.createDesktopIcon('a', {x: 0, y: 0});
 
-        Consumer(desktopIcon, state, 'a', 1000, 5);
+        Consumer(desktopIcon, 'a', 1000, 5);
         consumerOffCooldown(desktopIcon);
 
-        desktopIcon.consume();
+        desktopIcon.consume(state.desktopIcons);
 
         expect(desktopIcon.consumer.consumed).toEqual(0);
     });
@@ -62,12 +62,12 @@ describe('consume function', () => {
         const closerIcon = state.createDesktopIcon('b', {x: 0, y: 0});
 
         let consumedIconCopy;
-        Consumer(desktopIcon, state, 'b', 1000, 5, (consumedIcon) => {
+        Consumer(desktopIcon, 'b', 1000, 5, (consumedIcon) => {
             consumedIconCopy = consumedIcon;
         });
         consumerOffCooldown(desktopIcon);
 
-        desktopIcon.consume();
+        desktopIcon.consume(state.desktopIcons);
 
         expect(desktopIcon.consumer.consumed).toEqual(1);
         expect(consumedIconCopy.id === closerIcon.id).toBe(true);
@@ -77,10 +77,10 @@ describe('consume function', () => {
         const desktopIcon = state.createDesktopIcon('a', {x: 0, y: 0});
         state.createDesktopIcon('b', {x: 0, y: 10});
 
-        Consumer(desktopIcon, state, 'b', 1000, 5);
+        Consumer(desktopIcon, 'b', 1000, 5);
         consumerOffCooldown(desktopIcon);
 
-        desktopIcon.consume();
+        desktopIcon.consume(state.desktopIcons);
 
         expect(desktopIcon.consumer.consumed).toEqual(0);
     });
@@ -89,10 +89,10 @@ describe('consume function', () => {
         const desktopIcon = state.createDesktopIcon('a', {x: 0, y: 0});
         state.createDesktopIcon('b', {x: 0, y: 0});
 
-        Consumer(desktopIcon, state, 'b', 1000, 5);
+        Consumer(desktopIcon, state.desktopIcons, 'b', 1000, 5);
         consumerOnCooldown(desktopIcon);
 
-        desktopIcon.consume();
+        desktopIcon.consume(state.desktopIcons);
 
         expect(desktopIcon.consumer.consumed).toEqual(0);
     });
@@ -101,10 +101,10 @@ describe('consume function', () => {
         const desktopIcon = state.createDesktopIcon('a', {x: 0, y: 0});
         state.createDesktopIcon('b', {x: 0, y: 0});
 
-        Consumer(desktopIcon, state, 'b', 1000, 5);
+        Consumer(desktopIcon, 'b', 1000, 5);
         consumerOffCooldown(desktopIcon);
 
-        desktopIcon.consume();
+        desktopIcon.consume(state.desktopIcons);
 
         expect(desktopIcon.consumer.lastConsumeTimestamp).toEqual(Date.now());
     });
@@ -114,10 +114,10 @@ describe('consume function', () => {
         state.createDesktopIcon('b', {x: 0, y: 0});
         const onConsumeSpy = jest.fn();
 
-        Consumer(desktopIcon, state, 'b', 1000, 5, onConsumeSpy);
+        Consumer(desktopIcon, 'b', 1000, 5, onConsumeSpy);
         consumerOffCooldown(desktopIcon);
 
-        desktopIcon.consume();
+        desktopIcon.consume(state.desktopIcons);
 
         expect(onConsumeSpy).toHaveBeenCalledTimes(1);
     });
@@ -127,10 +127,10 @@ describe('consume function', () => {
         const desktopIcon = state.createDesktopIcon('a', {x: 0, y: 0});
         const onConsumeSpy = jest.fn();
 
-        Consumer(desktopIcon, state, 'b', 1000, 5, onConsumeSpy);
+        Consumer(desktopIcon, 'b', 1000, 5, onConsumeSpy);
         consumerOffCooldown(desktopIcon);
 
-        desktopIcon.consume();
+        desktopIcon.consume(state.desktopIcons);
 
         expect(onConsumeSpy).toHaveBeenCalledTimes(0);
     });
