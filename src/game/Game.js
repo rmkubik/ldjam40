@@ -61,7 +61,7 @@ class Game {
                 desktopIcon.emit();
             }
             if (desktopIcon.consume) {
-                desktopIcon.consume();
+                desktopIcon.consume(desktopIcons);
             }
         });
 
