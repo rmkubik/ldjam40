@@ -4,6 +4,9 @@ import Emitter from './Emitter';
 import Game from './Game';
 import GameState from './GameState';
 
+import {consumerOnCooldown, consumerOffCooldown,
+    emitterOnCooldown, emitterOffCooldown} from './TestHelpers';
+
 let game;
 
 beforeEach(() => {
@@ -89,17 +92,17 @@ describe('set desktop icon position', () => {
 
 describe('Consumer Integrations', () => {
     it('should remove consumed icon from state and increment money after second consume', () => {
-        // const appStore = game.state.createDesktopIcon(game.iconTypes.appStore, {x: 0, y: 0});
+        game.createAppStore({x: 0, y: 0});
         game.state.createDesktopIcon(game.iconTypes.file, {x: 0, y: 0});
         game.state.createDesktopIcon(game.iconTypes.file, {x: 0, y: 0});
 
-        game.createAppStore();
-
+        consumerOffCooldown(game.state.desktopIcons[0]);
         game.update();
 
         expect(game.state.desktopIcons.length).toBe(2);
         expect(game.state.money).toBe(0);
 
+        consumerOffCooldown(game.state.desktopIcons[0]);
         game.update();
 
         expect(game.state.desktopIcons.length).toBe(1);
