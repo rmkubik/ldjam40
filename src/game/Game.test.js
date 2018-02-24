@@ -112,11 +112,8 @@ describe('Consumer Integrations', () => {
 
 describe('Emitter Integrations', () => {
     it('should add spawned icon to state', () => {
-        const folder = game.state.createDesktopIcon(game.iconTypes.folder, {x: 0, y: 0});
-
-        Emitter(folder, game.iconTypes.file, 0, (spawnedIcon, position) => {
-            game.state.createDesktopIcon(spawnedIcon, position);
-        });
+        game.createFolder({x: 0, y: 0});
+        emitterOffCooldown(game.state.desktopIcons[0]);
 
         game.update();
 
