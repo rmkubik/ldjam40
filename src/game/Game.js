@@ -47,9 +47,26 @@ class Game {
         const folder = this.state.createDesktopIcon(this.iconTypes.folder, {x: 200, y: 150});
         Emitter(folder, this.state, this.iconTypes.file, 1000);
         const appStore = this.state.createDesktopIcon(this.iconTypes.appStore, {x: 350, y: 150});
-        Consumer(appStore, this.state, this.iconTypes.file, 1000, 50);
+        Consumer(
+            appStore,
+            this.iconTypes.file,
+            1000,
+            50,
+            (consumedIcon) => {
+                this.state.removeDesktopIcon(consumedIcon.id);
+                this.state.money++;
+            }
+        );
         const trash = this.state.createDesktopIcon(this.iconTypes.trash, {x: 475, y: 375});
-        Consumer(trash, this.state, false, 1000, 50);
+        Consumer(
+            trash,
+            false,
+            1000,
+            50,
+            (consumedIcon) => {
+                this.state.removeDesktopIcon(consumedIcon.id);
+            }
+        );
     }
 
     update() {
