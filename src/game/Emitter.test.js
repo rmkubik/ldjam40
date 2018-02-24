@@ -21,17 +21,10 @@ describe('Emitter functional mixin', () => {
 
 describe('emit function', () => {
     it('should not create icon when on cooldown', () => {
-        state.createDesktopIcon('a', {x: 0, y: 0});
-        const desktopIcon = state.desktopIcons[0];
+        const desktopIcon = state.createDesktopIcon('a', {x: 0, y: 0});
 
         Emitter(desktopIcon, state, 'b', 1000);
-        desktopIcon.emitter.lastEmitTimestamp = new Date('2018-01-01 12:00:00:0000').getTime();
-        Date.now = jest
-            .genMockFunction()
-            .mockReturnValue(
-                new Date('2018-01-01 12:00:00:0000').getTime()
-                    + desktopIcon.emitter.cooldown - 1
-            );
+        emitterOnCooldown(desktopIcon);
 
         desktopIcon.emit();
 
@@ -39,17 +32,10 @@ describe('emit function', () => {
     });
 
     it('should create icon of correct type when off cooldown', () => {
-        state.createDesktopIcon('a', {x: 0, y: 0});
-        const desktopIcon = state.desktopIcons[0];
+        const desktopIcon = state.createDesktopIcon('a', {x: 0, y: 0});
 
         Emitter(desktopIcon, state, 'b', 1000);
-        desktopIcon.emitter.lastEmitTimestamp = new Date('2018-01-01 12:00:00:0000').getTime();
-        Date.now = jest
-            .genMockFunction()
-            .mockReturnValue(
-                new Date('2018-01-01 12:00:00:0000').getTime()
-                    + desktopIcon.emitter.cooldown + 1
-            );
+        emitterOffCooldown(desktopIcon);
 
         desktopIcon.emit();
 
