@@ -28,11 +28,9 @@ const Consumer = (consumerIcon, state, consumedIcon, cooldown, range, onConsume)
         });
 
         if (findEuclideanDistance(closestIcon.position, consumerIcon.position) <= range) {
-            state.removeDesktopIcon(closestIcon.id);
-            state.money++;
             consumerIcon.consumer.consumed++;
             consumerIcon.consumer.lastConsumeTimestamp = currentTimestamp;
-            onConsume && onConsume(consumerIcon, consumedIcon);
+            onConsume && onConsume(closestIcon);
         }
     }
 
@@ -42,7 +40,7 @@ const Consumer = (consumerIcon, state, consumedIcon, cooldown, range, onConsume)
             consume,
             consumer: {
                 lastConsumeTimestamp: Date.now(),
-                cooldown: 1000,
+                cooldown,
                 consumed: 0
             }
         }
