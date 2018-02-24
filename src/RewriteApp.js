@@ -15,6 +15,7 @@ class RewriteApp extends Component {
 
         this.game = new Game(this);
         this.game.init();
+        window.game = this.game;
     }
 
     render() {
