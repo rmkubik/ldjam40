@@ -44,9 +44,9 @@ class Game {
     init() {
         this.loop = setInterval(this.update.bind(this), this.tickLength);
 
-        this.createFolder();
-        this.createAppStore();
-        this.createTrash();
+        this.createFolder({x: 200, y: 150});
+        this.createAppStore({x: 350, y: 150});
+        this.createTrash({x: 475, y: 375});
     }
 
     update() {
@@ -114,8 +114,8 @@ class Game {
         }
     }
 
-    createFolder = () => {
-        const folder = this.state.createDesktopIcon(this.iconTypes.folder, {x: 200, y: 150});
+    createFolder = (position) => {
+        const folder = this.state.createDesktopIcon(this.iconTypes.folder, position);
         Emitter(
             folder,
             this.iconTypes.file,
@@ -126,8 +126,8 @@ class Game {
         );
     }
 
-    createAppStore = () => {
-        const appStore = this.state.createDesktopIcon(this.iconTypes.appStore, {x: 350, y: 150});
+    createAppStore = (position) => {
+        const appStore = this.state.createDesktopIcon(this.iconTypes.appStore, position);
         Consumer(
             appStore,
             this.iconTypes.file,
@@ -142,8 +142,8 @@ class Game {
         );
     }
 
-    createTrash = () => {
-        const trash = this.state.createDesktopIcon(this.iconTypes.trash, {x: 475, y: 375});
+    createTrash = (position) => {
+        const trash = this.state.createDesktopIcon(this.iconTypes.trash, position);
         Consumer(
             trash,
             false,
