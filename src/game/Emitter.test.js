@@ -58,7 +58,17 @@ describe('emit function', () => {
         expect(onEmitSpy).toHaveBeenCalledTimes(1);
     });
 
-    // TODO: Not call onEmit test
+    it('should not call onEmit if defined when an icon is not emitted', () => {
+        const desktopIcon = state.createDesktopIcon('a', {x: 0, y: 0});
+        const onEmitSpy = jest.fn();
+
+        Emitter(desktopIcon, state, 'b', 1000, onEmitSpy);
+        emitterOnCooldown(desktopIcon);
+
+        desktopIcon.emit();
+
+        expect(onEmitSpy).toHaveBeenCalledTimes(0);
+    });
 });
 
 function emitterOnCooldown(emitterIcon) {
