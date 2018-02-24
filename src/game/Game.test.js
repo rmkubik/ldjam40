@@ -92,7 +92,7 @@ describe('Consumer Integrations', () => {
         const appStore = game.state.createDesktopIcon(game.iconTypes.appStore, {x: 0, y: 0});
         const file = game.state.createDesktopIcon(game.iconTypes.file, {x: 0, y: 0});
 
-        Consumer(appStore, game.state, game.iconTypes.file, 0, 5, (consumedIcon) => {
+        Consumer(appStore, game.iconTypes.file, 0, 5, (consumedIcon) => {
             game.state.removeDesktopIcon(consumedIcon.id);
             game.state.money++;
         });
