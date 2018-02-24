@@ -2,7 +2,7 @@ import DesktopIcon from './DesktopIcon';
 import Consumer from './Consumer';
 import GameState from './GameState';
 
-import {consumerOnCooldown, consumerOffCooldown} from 'TestHelpers';
+import {consumerOnCooldown, consumerOffCooldown} from './TestHelpers';
 
 let state;
 
