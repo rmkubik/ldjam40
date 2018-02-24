@@ -2,6 +2,8 @@ import DesktopIcon from './DesktopIcon';
 import Consumer from './Consumer';
 import GameState from './GameState';
 
+import {consumerOnCooldown, consumerOffCooldown} from 'TestHelpers';
+
 let state;
 
 beforeEach(() => {
@@ -135,23 +137,3 @@ describe('consume function', () => {
         expect(onConsumeSpy).toHaveBeenCalledTimes(0);
     });
 });
-
-function consumerOnCooldown(consumerIcon) {
-    consumerIcon.consumer.lastConsumeTimestamp = new Date('2018-01-01 12:00:00:0000').getTime();
-    Date.now = jest
-        .genMockFunction()
-        .mockReturnValue(
-            new Date('2018-01-01 12:00:00:0000').getTime()
-                + consumerIcon.consumer.cooldown - 1
-        );
-}
-
-function consumerOffCooldown(consumerIcon) {
-    consumerIcon.consumer.lastConsumeTimestamp = new Date('2018-01-01 12:00:00:0000').getTime();
-    Date.now = jest
-        .genMockFunction()
-        .mockReturnValue(
-            new Date('2018-01-01 12:00:00:0000').getTime()
-                + consumerIcon.consumer.cooldown + 1
-        );
-}

@@ -30,6 +30,7 @@ describe('App state', () => {
     });
 
     // TODO: Why does this test not work?
+    // did it fail because of the beforeEach rerunning jest.useFakeTimers?
     // it('should render desktop icons as DesktopIcon components', () => {
     //     jest.runOnlyPendingTimers();
     //

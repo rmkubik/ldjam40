@@ -2,6 +2,8 @@ import DesktopIcon from './DesktopIcon';
 import Emitter from './Emitter';
 import GameState from './GameState';
 
+import {emitterOnCooldown, emitterOffCooldown} from './TestHelpers';
+
 let state;
 
 beforeEach(() => {
@@ -70,23 +72,3 @@ describe('emit function', () => {
         expect(onEmitSpy).toHaveBeenCalledTimes(0);
     });
 });
-
-function emitterOnCooldown(emitterIcon) {
-    emitterIcon.emitter.lastEmitTimestamp = new Date('2018-01-01 12:00:00:0000').getTime();
-    Date.now = jest
-        .genMockFunction()
-        .mockReturnValue(
-            new Date('2018-01-01 12:00:00:0000').getTime()
-                + emitterIcon.emitter.cooldown - 1
-        );
-}
-
-function emitterOffCooldown(emitterIcon) {
-    emitterIcon.emitter.lastEmitTimestamp = new Date('2018-01-01 12:00:00:0000').getTime();
-    Date.now = jest
-        .genMockFunction()
-        .mockReturnValue(
-            new Date('2018-01-01 12:00:00:0000').getTime()
-                + emitterIcon.emitter.cooldown + 1
-        );
-}
