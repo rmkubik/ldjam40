@@ -4,7 +4,7 @@ import Game from './game/Game';
 import DesktopIconContainer from './components/DesktopIconContainer';
 import MenuBar from './components/MenuBar';
 
-class RewriteApp extends Component {
+class App extends Component {
 
     state = {
         desktopIcons: []
@@ -56,4 +56,4 @@ class RewriteApp extends Component {
 
 }
 
-export default RewriteApp;
+export default App;
