@@ -44,38 +44,9 @@ class Game {
     init() {
         this.loop = setInterval(this.update.bind(this), this.tickLength);
 
-        const folder = this.state.createDesktopIcon(this.iconTypes.folder, {x: 200, y: 150});
-        Emitter(
-            folder,
-            this.iconTypes.file,
-            1000,
-            (spawnedIcon, position) => {
-                this.state.createDesktopIcon(spawnedIcon, position);
-            }
-        );
-
-        const appStore = this.state.createDesktopIcon(this.iconTypes.appStore, {x: 350, y: 150});
-        Consumer(
-            appStore,
-            this.iconTypes.file,
-            1000,
-            50,
-            (consumedIcon) => {
-                this.state.removeDesktopIcon(consumedIcon.id);
-                this.state.money++;
-            }
-        );
-
-        const trash = this.state.createDesktopIcon(this.iconTypes.trash, {x: 475, y: 375});
-        Consumer(
-            trash,
-            false,
-            1000,
-            50,
-            (consumedIcon) => {
-                this.state.removeDesktopIcon(consumedIcon.id);
-            }
-        );
+        this.createFolder();
+        this.createAppStore();
+        this.createTrash();
     }
 
     update() {
@@ -141,6 +112,45 @@ class Game {
             x: Math.floor(Math.random() * this.screen.width),
             y: Math.floor(Math.random() * this.screen.height),
         }
+    }
+
+    createFolder = () => {
+        const folder = this.state.createDesktopIcon(this.iconTypes.folder, {x: 200, y: 150});
+        Emitter(
+            folder,
+            this.iconTypes.file,
+            1000,
+            (spawnedIcon, position) => {
+                this.state.createDesktopIcon(spawnedIcon, position);
+            }
+        );
+    }
+
+    createAppStore = () => {
+        const appStore = this.state.createDesktopIcon(this.iconTypes.appStore, {x: 350, y: 150});
+        Consumer(
+            appStore,
+            this.iconTypes.file,
+            1000,
+            50,
+            (consumedIcon) => {
+                this.state.removeDesktopIcon(consumedIcon.id);
+                this.state.money++;
+            }
+        );
+    }
+
+    createTrash = () => {
+        const trash = this.state.createDesktopIcon(this.iconTypes.trash, {x: 475, y: 375});
+        Consumer(
+            trash,
+            false,
+            1000,
+            50,
+            (consumedIcon) => {
+                this.state.removeDesktopIcon(consumedIcon.id);
+            }
+        );
     }
 }
 
