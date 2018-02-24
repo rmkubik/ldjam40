@@ -135,7 +135,9 @@ class Game {
             50,
             (consumedIcon) => {
                 this.state.removeDesktopIcon(consumedIcon.id);
-                this.state.money++;
+                if (appStore.consumer.consumed % 2 === 0) {
+                    this.state.money++;
+                }
             }
         );
     }
