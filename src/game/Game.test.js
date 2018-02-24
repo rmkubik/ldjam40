@@ -19,10 +19,10 @@ it('should have icon types', () => {
 });
 
 describe('init game function', () => {
-    it('should start the game with 2 icons', () => {
+    it('should start the game with 3 icons', () => {
         game.init();
 
-        expect(game.state.desktopIcons.length).toEqual(2);
+        expect(game.state.desktopIcons.length).toEqual(3);
     });
 });
 
