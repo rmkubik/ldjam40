@@ -91,12 +91,10 @@ class Game {
             }
         });
 
-        // render new state
+        // render new React state
         if (this.rootComponent) {
             this.rootComponent.setState(this.getReactState.bind(this));
         }
-
-        // TODO: clean up destroyed icons after they're finished timing out
     }
 
     // convert game state to react state
