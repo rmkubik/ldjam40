@@ -85,3 +85,20 @@ describe('set desktop icon position', () => {
         expect(desktopIcon.position).toEqual(newPosition);
     });
 });
+
+describe('Consumer Integrations', () => {
+    it('should remove consumed icon from state and increment money', () => {
+        const appStore = game.state.createDesktopIcon(game.iconTypes.appStore, {x: 0, y: 0});
+        const file = game.state.createDesktopIcon(game.iconTypes.file, {x: 0, y: 0});
+
+        Consumer(appStore, game.state, game.iconTypes.file, 0, 5, (consumedIcon) => {
+            game.state.removeDesktopIcon(consumedIcon.id);
+            game.state.money++;
+        });
+
+        game.update();
+
+        expect(game.state.desktopIcons.length).toBe(1);
+        expect(game.state.money).toBe(1);
+    });
+});
