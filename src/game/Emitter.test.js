@@ -57,3 +57,23 @@ describe('emit function', () => {
         expect(state.desktopIcons[1].icon).toEqual('b');
     });
 });
+
+function emitterOnCooldown(emitterIcon) {
+    emitterIcon.emitter.lastEmitTimestamp = new Date('2018-01-01 12:00:00:0000').getTime();
+    Date.now = jest
+        .genMockFunction()
+        .mockReturnValue(
+            new Date('2018-01-01 12:00:00:0000').getTime()
+                + emitterIcon.emitter.cooldown - 1
+        );
+}
+
+function emitterOffCooldown(emitterIcon) {
+    emitterIcon.emitter.lastEmitTimestamp = new Date('2018-01-01 12:00:00:0000').getTime();
+    Date.now = jest
+        .genMockFunction()
+        .mockReturnValue(
+            new Date('2018-01-01 12:00:00:0000').getTime()
+                + emitterIcon.emitter.cooldown + 1
+        );
+}
