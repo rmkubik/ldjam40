@@ -1,7 +1,7 @@
 import {findEuclideanDistance} from './Helpers';
 
-const Consumer = (consumerIcon, state, consumedIcon, cooldown, range, onConsume) => {
-    const consume = () => {
+const Consumer = (consumerIcon, consumedIcon, cooldown, range, onConsume) => {
+    const consume = (desktopIcons) => {
         const nextConsumeTimestamp = consumerIcon.consumer.lastConsumeTimestamp
             + consumerIcon.consumer.cooldown;
         const currentTimestamp = Date.now();
@@ -16,7 +16,7 @@ const Consumer = (consumerIcon, state, consumedIcon, cooldown, range, onConsume)
             :
             (desktopIcon) => consumerIcon.id !== desktopIcon.id;
 
-        const consumableIcons = state.desktopIcons.filter(consumeableFilter);
+        const consumableIcons = desktopIcons.filter(consumeableFilter);
 
         if (consumableIcons.length === 0) return;
 
