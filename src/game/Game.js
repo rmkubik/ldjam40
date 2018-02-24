@@ -45,8 +45,16 @@ class Game {
         this.loop = setInterval(this.update.bind(this), this.tickLength);
 
         const folder = this.state.createDesktopIcon(this.iconTypes.folder, {x: 200, y: 150});
-        Emitter(folder, this.state, this.iconTypes.file, 1000);
-        
+        Emitter(
+            folder,
+            this.state,
+            this.iconTypes.file,
+            1000,
+            (spawnedIcon, position) => {
+                this.state.createDesktopIcon(spawnedIcon, position);
+            }
+        );
+
         const appStore = this.state.createDesktopIcon(this.iconTypes.appStore, {x: 350, y: 150});
         Consumer(
             appStore,
