@@ -11,7 +11,7 @@ beforeEach(() => {
 describe('Emitter functional mixin', () => {
     it('should add the emit function to an icon\'s prototype', () => {
         state.createDesktopIcon('a', {x: 0, y: 0});
-        Emitter(state.desktopIcons[0], state, 'a', 1000);
+        Emitter(state.desktopIcons[0], 'a', 1000);
 
         expect(state.desktopIcons[0].emit).toEqual(expect.anything());
         expect(state.desktopIcons[0].emitter.cooldown).toEqual(expect.anything());
@@ -23,7 +23,7 @@ describe('emit function', () => {
     it('should not create icon when on cooldown', () => {
         const desktopIcon = state.createDesktopIcon('a', {x: 0, y: 0});
 
-        Emitter(desktopIcon, state, 'b', 1000);
+        Emitter(desktopIcon, 'b', 1000);
         emitterOnCooldown(desktopIcon);
 
         desktopIcon.emit();
@@ -35,7 +35,7 @@ describe('emit function', () => {
         const desktopIcon = state.createDesktopIcon('a', {x: 0, y: 0});
 
         let emittedIconCopy;
-        Emitter(desktopIcon, state, 'b', 1000, (spawnedIcon) => {
+        Emitter(desktopIcon, 'b', 1000, (spawnedIcon) => {
             emittedIconCopy = spawnedIcon;
         });
         emitterOffCooldown(desktopIcon);
@@ -50,7 +50,7 @@ describe('emit function', () => {
         const desktopIcon = state.createDesktopIcon('a', {x: 0, y: 0});
         const onEmitSpy = jest.fn();
 
-        Emitter(desktopIcon, state, 'b', 1000, onEmitSpy);
+        Emitter(desktopIcon, 'b', 1000, onEmitSpy);
         emitterOffCooldown(desktopIcon);
 
         desktopIcon.emit();
@@ -62,7 +62,7 @@ describe('emit function', () => {
         const desktopIcon = state.createDesktopIcon('a', {x: 0, y: 0});
         const onEmitSpy = jest.fn();
 
-        Emitter(desktopIcon, state, 'b', 1000, onEmitSpy);
+        Emitter(desktopIcon, 'b', 1000, onEmitSpy);
         emitterOnCooldown(desktopIcon);
 
         desktopIcon.emit();

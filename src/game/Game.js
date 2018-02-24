@@ -47,7 +47,6 @@ class Game {
         const folder = this.state.createDesktopIcon(this.iconTypes.folder, {x: 200, y: 150});
         Emitter(
             folder,
-            this.state,
             this.iconTypes.file,
             1000,
             (spawnedIcon, position) => {
