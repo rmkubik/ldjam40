@@ -2,14 +2,14 @@ import React from 'react';
 import {mount} from 'enzyme';
 import ReactDOM from 'react-dom';
 
-import RewriteApp from './RewriteApp';
+import App from './App';
 import DesktopIcon from './components/DesktopIcon';
 
 import Game from './game/Game';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<RewriteApp/>, div);
+  ReactDOM.render(<App/>, div);
 });
 
 describe('App state', () => {
@@ -18,7 +18,7 @@ describe('App state', () => {
     beforeEach(() => {
         jest.useFakeTimers();
 
-        app = mount(<RewriteApp/>);
+        app = mount(<App/>);
     });
 
     it('should update react state when the game updates', () => {
