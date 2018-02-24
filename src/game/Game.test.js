@@ -90,7 +90,7 @@ describe('set desktop icon position', () => {
 describe('Consumer Integrations', () => {
     it('should remove consumed icon from state and increment money', () => {
         const appStore = game.state.createDesktopIcon(game.iconTypes.appStore, {x: 0, y: 0});
-        const file = game.state.createDesktopIcon(game.iconTypes.file, {x: 0, y: 0});
+        game.state.createDesktopIcon(game.iconTypes.file, {x: 0, y: 0});
 
         Consumer(appStore, game.iconTypes.file, 0, 5, (consumedIcon) => {
             game.state.removeDesktopIcon(consumedIcon.id);
@@ -101,5 +101,20 @@ describe('Consumer Integrations', () => {
 
         expect(game.state.desktopIcons.length).toBe(1);
         expect(game.state.money).toBe(1);
+    });
+});
+
+describe('Emitter Integrations', () => {
+    it('should add spawned icon to state', () => {
+        const folder = game.state.createDesktopIcon(game.iconTypes.folder, {x: 0, y: 0});
+
+//desktopIcon, state, spawnedIcon, cooldown, onEmit
+        Emitter(folder, game.state, game.iconTypes.file, 0, (spawnedIcon, position) => {
+            game.state.createDesktopIcon(spawnedIcon, position);
+        });
+
+        game.update();
+
+        expect(game.state.desktopIcons.length).toBe(2);
     });
 });
