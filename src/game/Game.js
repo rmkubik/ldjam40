@@ -81,24 +81,23 @@ class Game {
         const {money, hddSize, desktopIcons} = this.state;
 
         if (money >= cost && desktopIcons.length < hddSize) {
-            const newIcon = this.state.createDesktopIcon(icon, this.getRandomPositionOnScreen());
+            this.switchCreateIcon(icon);
             this.state.money = money - cost;
-            this.modifyPurchasedDesktopIcon(newIcon);
         }
     }
 
-    modifyPurchasedDesktopIcon(desktopIcon) {
-        switch(desktopIcon.icon) {
+    switchCreateIcon(icon) {
+        switch(icon) {
             case this.iconTypes.folder:
-                Emitter(desktopIcon, this.state, this.iconTypes.file, 1000);
+                this.createFolder(this.getRandomPositionOnScreen());
                 break;
 
             case this.iconTypes.appStore:
-                Consumer(desktopIcon, this.state, this.iconTypes.file, 1000, 100);
+                this.createAppStore(this.getRandomPositionOnScreen());
                 break;
 
             case this.iconTypes.hdd:
-                this.state.hddSize += 10;
+                this.createHdd(this.getRandomPositionOnScreen());
                 break;
 
             default:
