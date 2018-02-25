@@ -154,6 +154,11 @@ class Game {
             }
         );
     }
+
+    createHdd = (position) => {
+        this.state.hddSize += 10;
+        this.state.createDesktopIcon(this.iconTypes.hdd, position);
+    }
 }
 
 export default Game;
