@@ -8,29 +8,30 @@ const Consumer = (consumerIcon, consumedIcon, cooldown, range, consumeAmount, on
 
         if (currentTimestamp < nextConsumeTimestamp) return;
 
-        const consumeableFilter = consumedIcon ?
-            (desktopIcon) => {
-                return desktopIcon.icon === consumedIcon
-                    && consumerIcon.id !== desktopIcon.id;
+        const consumeableFilter = consumedIcon
+            ? (desktopIcon) => {
+                return consumerIcon.id !== desktopIcon.id
+                    && findEuclideanDistance(desktopIcon.position, consumerIcon.position) <= range
+                    && desktopIcon.icon === consumedIcon;
             }
-            :
-            (desktopIcon) => consumerIcon.id !== desktopIcon.id;
-
+            : (desktopIcon) => {
+                return consumerIcon.id !== desktopIcon.id
+                    && findEuclideanDistance(desktopIcon.position, consumerIcon.position) <= range;
+            }
         const consumableIcons = desktopIcons.filter(consumeableFilter);
 
-        if (consumableIcons.length === 0) return;
+        if (consumableIcons.length > 0) {
 
-        const closestIcon = consumableIcons.reduce((closestIcon, currentIcon) => {
-            return findEuclideanDistance(currentIcon.position, consumerIcon.position)
-                < findEuclideanDistance(closestIcon.position, consumerIcon.position)
-                    ? currentIcon
-                    : closestIcon
-        });
+            const sortedIcons = [...consumableIcons].sort((a, b) => {
+                return findEuclideanDistance(a.position, consumerIcon.position)
+                    - findEuclideanDistance(b.position, consumerIcon.position);
+            });
 
-        if (findEuclideanDistance(closestIcon.position, consumerIcon.position) <= range) {
-            consumerIcon.consumer.consumed++;
+            const consumedIcons = sortedIcons.slice(0, consumeAmount);
+
+            consumerIcon.consumer.consumed += consumedIcons.length;
             consumerIcon.consumer.lastConsumeTimestamp = currentTimestamp;
-            onConsume && onConsume(closestIcon);
+            onConsume && onConsume(consumedIcons);
         }
     }
 
