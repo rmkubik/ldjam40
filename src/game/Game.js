@@ -132,8 +132,11 @@ class Game {
             this.iconTypes.file,
             1000,
             50,
-            (consumedIcon) => {
-                this.state.removeDesktopIcon(consumedIcon.id);
+            2,
+            (consumedIcons) => {
+                consumedIcons.forEach((consumedIcon) => {
+                    this.state.removeDesktopIcon(consumedIcon.id);
+                });
                 if (appStore.consumer.consumed % 2 === 0) {
                     this.state.money++;
                 }
