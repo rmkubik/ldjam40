@@ -133,16 +133,24 @@ class Game {
         const appStore = this.state.createDesktopIcon(this.iconTypes.appStore, position);
         Consumer(
             appStore,
-            this.iconTypes.file,
+            [
+                this.iconTypes.file,
+                this.iconTypes.package
+            ],
             1000,
             50,
             2,
             (consumedIcons) => {
                 consumedIcons.forEach((consumedIcon) => {
                     this.state.removeDesktopIcon(consumedIcon.id);
+                    if (consumedIcon.icon === this.iconTypes.package) {
+                        this.state.money += 4;
+                        appStore.consumer.consumed--;
+                    }
                 });
-                if (appStore.consumer.consumed % 2 === 0) {
-                    this.state.money++;
+                if (appStore.consumer.consumed !== 0
+                    && appStore.consumer.consumed % 2 === 0) {
+                        this.state.money++;
                 }
             }
         );

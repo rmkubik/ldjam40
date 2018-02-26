@@ -21,7 +21,6 @@ const Consumer = (consumerIcon, consumedIcons, cooldown, range, consumeAmount, o
         const consumableIcons = desktopIcons.filter(consumeableFilter);
 
         if (consumableIcons.length > 0) {
-
             const sortedIcons = [...consumableIcons].sort((a, b) => {
                 return findEuclideanDistance(a.position, consumerIcon.position)
                     - findEuclideanDistance(b.position, consumerIcon.position);
