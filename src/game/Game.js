@@ -105,7 +105,7 @@ class Game {
                 break;
 
             default:
-                console.warning('Unimplemented Icon!');
+                console.warn('Unimplemented Icon!');
                 break;
         }
     }
