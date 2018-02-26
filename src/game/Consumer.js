@@ -1,6 +1,6 @@
 import {findEuclideanDistance} from './Helpers';
 
-const Consumer = (consumerIcon, consumedIcon, cooldown, range, onConsume) => {
+const Consumer = (consumerIcon, consumedIcon, cooldown, range, consumeAmount, onConsume) => {
     const consume = (desktopIcons) => {
         const nextConsumeTimestamp = consumerIcon.consumer.lastConsumeTimestamp
             + consumerIcon.consumer.cooldown;
@@ -41,6 +41,7 @@ const Consumer = (consumerIcon, consumedIcon, cooldown, range, onConsume) => {
             consumer: {
                 lastConsumeTimestamp: Date.now(),
                 cooldown,
+                consumeAmount,
                 consumed: 0
             }
         }
