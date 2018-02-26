@@ -76,6 +76,24 @@ describe('consume function', () => {
         expect(consumedIconCopy.id === closerIcon.id).toBe(true);
     });
 
+    it('should consume only consumeable icon types', () => {
+        const desktopIcon = state.createDesktopIcon('a', {x: 0, y: 0});
+        state.createDesktopIcon('b', {x: 0, y: 0});
+        state.createDesktopIcon('c', {x: 0, y: 0});
+        const otherIconType = state.createDesktopIcon('d', {x: 0, y: 0});
+
+        let consumedIconIcons;
+        Consumer(desktopIcon, ['b', 'c'], 1000, 5, 2, (consumedIcons) => {
+            consumedIconIcons = consumedIcons.map(icon => icon.icon);
+        });
+        consumerOffCooldown(desktopIcon);
+
+        desktopIcon.consume(state.desktopIcons);
+
+        expect(desktopIcon.consumer.consumed).toEqual(2);
+        expect(consumedIconIcons).toEqual(['b', 'c']);
+    });
+
     it('should not consume icons out of range', () => {
         const desktopIcon = state.createDesktopIcon('a', {x: 0, y: 0});
         state.createDesktopIcon('b', {x: 0, y: 10});
