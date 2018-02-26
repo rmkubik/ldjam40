@@ -40,6 +40,10 @@ class App extends Component {
                         },
                         {
                             icon: this.game.iconTypes.hdd,
+                            price: 40
+                        },
+                        {
+                            icon: this.game.iconTypes.factory,
                             price: 50
                         }
                     ]}

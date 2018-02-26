@@ -100,8 +100,12 @@ class Game {
                 this.createHdd(this.getRandomPositionOnScreen());
                 break;
 
+            case this.iconTypes.factory:
+                this.createFactory(this.getRandomPositionOnScreen());
+                break;
+
             default:
-                console.log('Unimplemented Icon!');
+                console.warning('Unimplemented Icon!');
                 break;
         }
     }
