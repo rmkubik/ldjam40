@@ -34,17 +34,18 @@ describe('consume function', () => {
         expect(desktopIcon.consumer.consumed).toEqual(1);
     });
 
-    it('should consume only one icon', () => {
+    it('should consume only consumeAmount of icons', () => {
         const desktopIcon = state.createDesktopIcon('a', {x: 0, y: 0});
         state.createDesktopIcon('b', {x: 0, y: 0});
         state.createDesktopIcon('b', {x: 0, y: 0});
+        state.createDesktopIcon('b', {x: 0, y: 0});
 
-        Consumer(desktopIcon, 'b', 1000, 5);
+        Consumer(desktopIcon, 'b', 1000, 5, 2);
         consumerOffCooldown(desktopIcon);
 
         desktopIcon.consume(state.desktopIcons);
 
-        expect(desktopIcon.consumer.consumed).toEqual(1);
+        expect(desktopIcon.consumer.consumed).toEqual(2);
     });
 
     it('should not consume self', () => {
