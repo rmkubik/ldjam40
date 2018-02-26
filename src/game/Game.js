@@ -176,7 +176,23 @@ class Game {
             this.iconTypes.package,
             1000,
             (spawnedIcon, position) => {
-                this.state.createDesktopIcon(spawnedIcon, position);
+                if (factory.consumer.consumed !== 0
+                    && factory.consumer.consumed % 4 === 0) {
+                        this.state.createDesktopIcon(spawnedIcon, position);
+                        factory.consumer.consumed -= 4;
+                }
+            }
+        );
+        Consumer(
+            factory,
+            this.iconTypes.file,
+            1000,
+            50,
+            4,
+            (consumedIcons) => {
+                consumedIcons.forEach((consumedIcon) => {
+                    this.state.removeDesktopIcon(consumedIcon.id);
+                });
             }
         )
     }
