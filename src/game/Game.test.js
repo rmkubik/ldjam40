@@ -95,18 +95,21 @@ describe('Consumer Integrations', () => {
         game.createAppStore({x: 0, y: 0});
         game.state.createDesktopIcon(game.iconTypes.file, {x: 0, y: 0});
         game.state.createDesktopIcon(game.iconTypes.file, {x: 0, y: 0});
+        game.state.createDesktopIcon(game.iconTypes.file, {x: 0, y: 0});
+        game.state.createDesktopIcon(game.iconTypes.file, {x: 0, y: 0});
+        game.state.createDesktopIcon(game.iconTypes.file, {x: 0, y: 0});
+
+        consumerOffCooldown(game.state.desktopIcons[0]);
+        game.update();
+
+        expect(game.state.desktopIcons.length).toBe(4);
+        expect(game.state.money).toBe(1);
 
         consumerOffCooldown(game.state.desktopIcons[0]);
         game.update();
 
         expect(game.state.desktopIcons.length).toBe(2);
-        expect(game.state.money).toBe(0);
-
-        consumerOffCooldown(game.state.desktopIcons[0]);
-        game.update();
-
-        expect(game.state.desktopIcons.length).toBe(1);
-        expect(game.state.money).toBe(1);
+        expect(game.state.money).toBe(2);
     });
 });
 
