@@ -143,15 +143,15 @@ class Game {
             (consumedIcons) => {
                 consumedIcons.forEach((consumedIcon) => {
                     this.state.removeDesktopIcon(consumedIcon.id);
-                    if (consumedIcon.icon === this.iconTypes.package) {
-                        this.state.money += 4;
-                        appStore.consumer.consumed--;
+                    switch (consumedIcon.icon) {
+                        case this.iconTypes.package:
+                            this.state.money += 4;
+                            break;
+                        case this.iconTypes.file:
+                            this.state.money += 0.5;
+                            break;
                     }
                 });
-                if (appStore.consumer.consumed !== 0
-                    && appStore.consumer.consumed % 2 === 0) {
-                        this.state.money++;
-                }
             }
         );
     }
