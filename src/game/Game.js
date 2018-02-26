@@ -151,9 +151,11 @@ class Game {
             false,
             1000,
             50,
-            (consumedIcon) => {
-                this.state.removeDesktopIcon(consumedIcon.id);
-            }
+            1,
+            (consumedIcons) => {
+                consumedIcons.forEach((consumedIcon) => {
+                    this.state.removeDesktopIcon(consumedIcon.id);
+                });            }
         );
     }
 
