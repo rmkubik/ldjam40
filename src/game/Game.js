@@ -155,13 +155,26 @@ class Game {
             (consumedIcons) => {
                 consumedIcons.forEach((consumedIcon) => {
                     this.state.removeDesktopIcon(consumedIcon.id);
-                });            }
+                });
+            }
         );
     }
 
     createHdd = (position) => {
         this.state.hddSize += 10;
         this.state.createDesktopIcon(this.iconTypes.hdd, position);
+    }
+
+    createFactory = (position) => {
+        const factory = this.state.createDesktopIcon(this.iconTypes.factory, position);
+        Emitter(
+            factory,
+            this.iconTypes.package,
+            1000,
+            (spawnedIcon, position) => {
+                this.state.createDesktopIcon(spawnedIcon, position);
+            }
+        )
     }
 }
 
