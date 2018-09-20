@@ -49,10 +49,12 @@ class App extends Component {
                     ]}
                     purchaseDesktopIcon={this.game.purchaseDesktopIcon}
                     hdd={hdd}
+                    screen={this.game.screen}
                 />
                 <DesktopIconContainer
                     desktopIcons = {desktopIcons}
                     updateDesktopIconPosition={this.game.state.updateDesktopIconPosition}
+                    screen = {this.game.screen}
                 />
             </div>
         )

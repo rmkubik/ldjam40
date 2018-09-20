@@ -2,10 +2,26 @@ body {
   user-select: none;
 }
 
+#screen {
+    background-image: url('assets/xp_bg_wide.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .icon {
   font-size: 32px;
+  margin: 0;
   position: absolute;
   cursor: pointer;
+}
+
+.menubar {
+    background-color: rgb(224, 221, 200);
+    /* rgb(4, 60 , 222) */
+}
+
+.menubar p {
+    margin: 5px;
 }
 
 .money,

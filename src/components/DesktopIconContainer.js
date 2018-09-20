@@ -19,27 +19,27 @@ class DesktopIconContainer extends React.Component {
     // have them set their own timeouts to remove themselves
     // from this components state.
 
-    componentWillReceiveProps(nextProps) {
-        // if nextProps has icon that state icons doesn't have
-        // start the exit animation
-        let newlyDestroyedIcons = [];
-        this.state.desktopIcons.forEach((icon) => {
-            const isIconAlive = nextProps.desktopIcons.some((newIcon) => {
-                return icon.id === newIcon.id;
-            });
-            if (!isIconAlive) newlyDestroyedIcons.push(icon);
-        });
-
-        // this will still remove out destroyed icons from state...
-        // somehow we need to make sure the destroyed icons stay in
-        // the state until their animations are finished. Separate
-        // destroyedIcons array? Insert the destroyedIcons on the
-        // end of the desktopIcons array?
-        this.setState({
-            desktopIcons: [...nextProps.desktopIcons],
-            destroyedIcons: [...this.state.destroyedIcons, ...newlyDestroyedIcons]
-        });
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     // if nextProps has icon that state icons doesn't have
+    //     // start the exit animation
+    //     let newlyDestroyedIcons = [];
+    //     this.state.desktopIcons.forEach((icon) => {
+    //         const isIconAlive = nextProps.desktopIcons.some((newIcon) => {
+    //             return icon.id === newIcon.id;
+    //         });
+    //         if (!isIconAlive) newlyDestroyedIcons.push(icon);
+    //     });
+    //
+    //     // this will still remove out destroyed icons from state...
+    //     // somehow we need to make sure the destroyed icons stay in
+    //     // the state until their animations are finished. Separate
+    //     // destroyedIcons array? Insert the destroyedIcons on the
+    //     // end of the desktopIcons array?
+    //     this.setState({
+    //         desktopIcons: [...nextProps.desktopIcons],
+    //         destroyedIcons: [...this.state.destroyedIcons, ...newlyDestroyedIcons]
+    //     });
+    // }
 
     removeIconFromDestroyedState = (id) => {
         // pass this function to DesktopIcon
@@ -63,10 +63,12 @@ class DesktopIconContainer extends React.Component {
     }
 
     render() {
-        const {desktopIcons, destroyedIcons} = this.state;
+        // const {desktopIcons, destroyedIcons} = this.state;
+        const {desktopIcons} = this.props;
+        const {width, height} = this.props.screen;
 
         return  (
-            <div>
+            <div id="screen" style={{width: width + 32, height: height + 32}}>
                 {desktopIcons.map(desktopIcon => <DesktopIcon
                     onDrag={this.props.updateDesktopIconPosition}
                     icon={desktopIcon.icon}
@@ -74,7 +76,7 @@ class DesktopIconContainer extends React.Component {
                     key={desktopIcon.id}
                     id={desktopIcon.id}
                 />)}
-                {destroyedIcons.map(desktopIcon => <DesktopIcon
+                {/* destroyedIcons.map(desktopIcon => <DesktopIcon
                     onDrag={this.props.updateDesktopIconPosition}
                     icon={desktopIcon.icon}
                     destroyIcon={true}
@@ -82,7 +84,7 @@ class DesktopIconContainer extends React.Component {
                     initialPosition={desktopIcon.position}
                     key={desktopIcon.id}
                     id={desktopIcon.id}
-                />)}
+                />)*/}
             </div>
         )
     }

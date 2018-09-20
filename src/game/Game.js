@@ -4,12 +4,12 @@ import Consumer from './Consumer';
 
 class Game {
 
-    tickLength = 30;
+    tickLength = 100;
     state;
     loop;
     setReactState;
     screen = {
-        width: 500,
+        width: 600,
         height: 400
     }
 

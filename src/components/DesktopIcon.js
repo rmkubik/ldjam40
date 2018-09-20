@@ -5,15 +5,15 @@ import '../App.css';
 
 const fadeTimeout = 150;
 
-const Fade = ({ children, ...props }) => (
-    <CSSTransition
-      {...props}
-      timeout={fadeTimeout}
-      classNames="spawn"
-    >
-      {children}
-    </CSSTransition>
-  );
+// const Fade = ({ children, ...props }) => (
+//     <CSSTransition
+//       {...props}
+//       timeout={fadeTimeout}
+//       classNames="spawn"
+//     >
+//       {children}
+//     </CSSTransition>
+//   );
 
 class DesktopIcon extends React.Component {
 
@@ -44,15 +44,15 @@ class DesktopIcon extends React.Component {
                 });
             }
             : undefined;
+            // <Fade in={this.state.show}>
+            // </Fade>
 
         return (
             <Draggable onDrag={onDrag} defaultPosition={this.props.initialPosition}>
                 <div>
-                    <Fade in={this.state.show}>
                         <p className={"icon"}>
                             {this.props.icon}
                         </p>
-                    </Fade>
                 </div>
             </Draggable>
         )

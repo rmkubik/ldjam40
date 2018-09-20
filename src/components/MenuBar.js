@@ -5,7 +5,7 @@ import HddBar from './HddBar';
 
 function MenuBar(props) {
     return (
-        <div>
+        <div className="menubar" style={{width: props.screen.width + 32}}>
             <p className="money">{`$${props.money}`}</p>
             {props.createButtons.map((createButton, index) => {
                 return (
